@@ -1,0 +1,9 @@
+* Blogs                                                              :elfeed:
+** Software Development                                                 :dev:
+*** Emacs                                                    :emacs:
+**** https://planet.emacslife.com/atom.xml
+
+*** Clojure                                                       :clojure:
+**** https://planet.clojure.in/atom.xml
+** Life
+*** https://xkcd.com/atom.xml :funny:

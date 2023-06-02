@@ -1,0 +1,22 @@
+{
+    "rules": {
+        "max-comma": true,
+        "write-good": true,
+        "no-start-duplicated-conjunction": true,
+        "terminology": false,
+        "period-in-list-item": true,
+        "abbr-within-parentheses": false,
+        "alex": true,
+        "common-misspellings": true,
+        "en-max-word-count": false,
+        "diacritics": false,
+        "stop-words": false,
+        "no-todo": true,
+	"@textlint-rule/proselint": true
+        },
+    "plugins": {
+        "@textlint/text": {
+            "extensions": [".org"]
+            }
+        }
+}

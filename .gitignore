@@ -1,0 +1,11 @@
+*
+
+!.gitignore
+!init.el
+!elfeed.org
+!elisp
+!elisp/*
+!codester
+!codester/*
+!snippets
+!snippets/*
