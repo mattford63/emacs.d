@@ -56,7 +56,7 @@
 	org-cycle-hide-drawer-startup t
 	org-image-actual-width (list 450))
   :hook
-  (org-mode . (lambda () (progn (org-hide-properties) (org-display-inline-images)))))
+  (org-mode . (lambda () (progn (text-modes) (org-hide-properties) (org-display-inline-images)))))
 
 (use-package org-roam
   :after org magit

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: mermaid
+# key: >mermaid
+# --
+#+begin_src mermaid :file assets/${1:local}.png ${2:width "${3:600}"}
+graph TD
+  $4
+#+end_src
