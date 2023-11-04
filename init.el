@@ -6,6 +6,7 @@
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 (add-to-list 'load-path "~/.emacs.d/codester")
 (setq custom-file "~/.emacs.d/custom.el")
+(load custom-file)
 
 (require 'codester-ui)
 (require 'codester-system)
@@ -14,4 +15,4 @@
 (require 'codester-coding)
 (require 'codester-org)
 (require 'codester-tools)
-(load custom-file)
+

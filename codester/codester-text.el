@@ -7,15 +7,14 @@
   (setq fill-column 110)
   (setq-default visual-fill-column-center-text t))
 
-(use-package lsp-grammarly
-  :ensure t)
+;; (use-package lsp-grammarly
+;;   :ensure t)
 
 (defun text-modes ()
   (progn (flyspell-mode)
 	 (visual-line-mode)
 	 (visual-fill-column-mode)
-	 (adaptive-wrap-prefix-mode)
-	 (lsp)))
+	 (adaptive-wrap-prefix-mode)))
 
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)

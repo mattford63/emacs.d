@@ -11,8 +11,10 @@
 ;; Native UI Tweaks
 (setq inhibit-startup-screen t)
 (tool-bar-mode -1)
-(load-theme 'leuven)
+;;(load-theme 'leuven)
+(load-theme 'leuven-dark)
 (scroll-bar-mode -1)
+(menu-bar-mode -1)
 ;;(add-to-list 'default-frame-alist '(undecorated-round . t))
 (setq-default set-mark-command-repeat-pop t)
 (defun my/apply-theme (appearance)
@@ -24,5 +26,8 @@
 
 (add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
 (save-place-mode)
+
+;; icons
+(use-package all-the-icons)
 
 (provide 'codester-ui)

@@ -28,7 +28,7 @@
 
 (use-package vterm-toggle
   :vc (:fetcher github :repo jixiuf/vterm-toggle)
-  :bind (("C-`" . 'vterm-toggle)
+  :bind (("C-c '" . 'vterm-toggle)
 	 ("<C-return>" . 'vterm-toggle-insert-cd)))
 
 ;; Dired
