@@ -28,7 +28,7 @@
 
 (use-package vterm-toggle
   :vc (:fetcher github :repo jixiuf/vterm-toggle)
-  :bind (("C-c '" . 'vterm-toggle)
+  :bind (("C-c #" . 'vterm-toggle)
 	 ("<C-return>" . 'vterm-toggle-insert-cd)))
 
 ;; Dired
@@ -47,7 +47,8 @@
 ;; Wgrep
 (use-package wgrep)
 
-(provide 'codester-system)
-
 ;; Search
 (use-package ripgrep)
+
+(provide 'codester-system)
+

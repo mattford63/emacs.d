@@ -11,8 +11,8 @@
 ;; Native UI Tweaks
 (setq inhibit-startup-screen t)
 (tool-bar-mode -1)
-;;(load-theme 'leuven)
-(load-theme 'leuven-dark)
+(load-theme 'doom-one)
+;;(load-theme 'leuven-dark)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 ;;(add-to-list 'default-frame-alist '(undecorated-round . t))
@@ -29,5 +29,12 @@
 
 ;; icons
 (use-package all-the-icons)
+
+(use-package nerd-icons)
+
+(use-package doom-modeline
+  :init (doom-modeline-mode))
+
+(use-package doom-themes)
 
 (provide 'codester-ui)
