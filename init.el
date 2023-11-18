@@ -7,9 +7,9 @@
 (add-to-list 'load-path "~/.emacs.d/codester")
 (setq custom-file "~/.emacs.d/custom.el")
 (load custom-file)
-
-(require 'codester-ui)
+(require 'codester-bootstrap)
 (require 'codester-system)
+(require 'codester-ui)
 (require 'codester-text)
 (require 'codester-completion) 
 (require 'codester-coding)
