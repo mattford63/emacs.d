@@ -21,6 +21,8 @@
 
 (use-package nerd-icons)
 
+(set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
+
 (use-package doom-modeline
   :init (doom-modeline-mode))
 

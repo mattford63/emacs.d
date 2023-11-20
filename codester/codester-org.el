@@ -72,6 +72,7 @@
                (direction . right)
                (window-width . 0.33)
                (window-height . fit-window-to-buffer)))
+  (setq org-roam-ui-browser-function #'xwidget-webkit-browse-url)
   :bind (("C-c n f" . org-roam-node-find)
          ("C-c n r" . org-roam-node-random)
          :map org-mode-map

@@ -50,5 +50,9 @@
 ;; Search
 (use-package ripgrep)
 
+;; Browse
+
+(setq browse-url-browser-function 'xwidget-webkit-browse-url)
+
 (provide 'codester-system)
 
