@@ -90,7 +90,7 @@
          ("C-<f6>" . projectile-replace)
          ("<f7>" . projectile-find-file)
          ("<f8>" . projectile-run-vterm)
-         ("<f9>" . projectile-command-map))
+         ("C-c p" . projectile-command-map))
   :diminish)
 
 ;; Templating

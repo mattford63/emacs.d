@@ -42,7 +42,7 @@
 ;; Language Server Frameworks
 (use-package lsp-mode
   :init
-  (setq lsp-keymap-prefix "C-c C-a"
+  (setq lsp-keymap-prefix "<f5>"
 	lsp-headerline-breadcrumb-enable nil
 	lsp-completion-provider :none
 	lsp-clojure-custom-server-command "~/.local/bin/clojure-lsp"

@@ -30,6 +30,6 @@
 
 (load-theme 'doom-one)
 
-(set-frame-font "Inconsolata 16" nil t)
+;; (set-frame-font "Inconsolata 14" nil t)
 
 (provide 'codester-ui)
