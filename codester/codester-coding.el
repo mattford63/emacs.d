@@ -1,6 +1,7 @@
 ;; Version Control
 (use-package magit)
 
+(use-package forge)
 (use-package git-link
   :bind (("C-c g l" . git-link)
 	 ("C-c g c" . git-link-commit)
@@ -58,7 +59,7 @@
    (lsp-help-mode . visual-line-mode))
   :bind
   (:map lsp-mode-map
-	;;("C-c C-a" . lsp-execute-code-action)
+	("C-c C-a" . lsp-execute-code-action)
 	("s-." . xref-find-references)
 	;;("m-g n" . flymake-goto-next-error)
 	;;("M-g p" . flymake-goto-prev-error)
