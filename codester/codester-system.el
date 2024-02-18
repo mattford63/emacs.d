@@ -1,6 +1,12 @@
 ;; Auth sources
 (setq auth-sources '("~/.authinfo.gpg"))
 
+;; Shell
+(use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(pgtk))
+    (exec-path-from-shell-initialize)))
+
 ;; Backups/Files
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))

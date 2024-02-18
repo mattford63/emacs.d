@@ -32,4 +32,6 @@
 
 ;; (set-frame-font "Inconsolata 14" nil t)
 
+(use-package multiple-cursors)
+
 (provide 'codester-ui)

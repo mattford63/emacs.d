@@ -46,7 +46,8 @@
    ("C-c a" . org-agenda)
    ("C-c c" . org-capture)
    ("C-c M-l" . jcs-get-link)
-   ("C-c p" . org-toggle-properties))
+   ;;("C-c p" . org-toggle-properties)
+   )
   :config
   (setq org-agenda-files '("~/src/org/")
 	org-refile-targets '((org-agenda-files :maxlevel . 3))
