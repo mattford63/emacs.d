@@ -1,6 +1,6 @@
 ;; Auth sources
 (setq auth-sources '("~/.authinfo.gpg"))
-
+(setq epa-pinentry-mode 'loopback)
 ;; Shell
 (use-package exec-path-from-shell
   :config
