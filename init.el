@@ -1,3 +1,7 @@
+;;; package --- Summary -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 ;; brew install tree-sitter
 ;; brew install emacs-plus@29 --with-native-comp --with-xwidgets
 ;; git clone git@github.com:casouri/tree-sitter-module.git
@@ -11,8 +15,9 @@
 (require 'codester-system)
 (require 'codester-ui)
 (require 'codester-text)
-(require 'codester-completion) 
+(require 'codester-completion)
 (require 'codester-coding)
 (require 'codester-org)
 (require 'codester-tools)
 
+;;; init.el ends here
