@@ -1,3 +1,7 @@
+;;; codester-tools.el --- summary -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 ;; Bamboo HR
 (use-package bhr
   :vc (:fetcher github :repo elken/bhr.el)
@@ -14,3 +18,5 @@
   (elfeed-org))
 
 (provide 'codester-tools)
+
+;;; codester-tools.el ends here

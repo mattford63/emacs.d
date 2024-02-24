@@ -1,3 +1,12 @@
+;;; codester-text.el --- summary -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
+(message "Hello World!")
+
+(provide 'codester-text)
+
+;;; codester-text.el ends here
 (use-package adaptive-wrap)
 
 ;; Couple text mode settings to this package
@@ -11,10 +20,12 @@
 ;;   :ensure t)
 
 (defun text-modes ()
-  (progn (flyspell-mode)
-	 (visual-line-mode)
-	 (visual-fill-column-mode)
-	 (adaptive-wrap-prefix-mode)))
+  "Load text modes."
+  (progn
+    (flyspell-mode)
+    (visual-line-mode)
+    (visual-fill-column-mode)
+    (adaptive-wrap-prefix-mode)))
 
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
@@ -27,3 +38,5 @@
   ((gfm-mode markdown-mode) . text-modes))
 
 (provide 'codester-text)
+
+;;; codester-text.el ends here

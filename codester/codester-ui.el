@@ -1,4 +1,7 @@
-;; Native UI Tweaks
+;;; codester-ui.el --- summary -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 (setq inhibit-startup-screen t)
 (tool-bar-mode -1)
 (use-package doom-themes)
@@ -35,3 +38,5 @@
 (use-package multiple-cursors)
 
 (provide 'codester-ui)
+
+;;; codester-ui.el ends here

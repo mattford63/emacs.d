@@ -1,6 +1,11 @@
+;;; package --- Summary -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 ;; Auth sources
 (setq auth-sources '("~/.authinfo.gpg"))
-(setq epa-pinentry-mode 'loopback)
+(require 'epg)
+(setq epg-pinentry-mode 'loopback)
 ;; Shell
 (use-package exec-path-from-shell
   :config
@@ -15,7 +20,8 @@
 (global-auto-revert-mode t)
 
 ;; Package System Setup
-(setq treesit-extra-load-path '("~/src/tree-sitter-module/dist"))
+(require 'treesit)
+;;(setq treesit-extra-load-path '("~/src/tree-sitter-module/dist"))
 
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
@@ -61,4 +67,6 @@
 (setq browse-url-browser-function 'xwidget-webkit-browse-url)
 
 (provide 'codester-system)
+
+;;; codester-system.el ends here
 

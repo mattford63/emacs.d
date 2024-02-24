@@ -62,12 +62,13 @@
 
 ;; Language Server Frameworks
 (use-package lsp-mode
+  :custom
+  (lsp-completion-provider :none)
+  (lsp-clojure-custom-server-command "~/.local/bin/clojure-lsp")
   :init
   (setq lsp-keymap-prefix "<f5>"
 	lsp-headerline-breadcrumb-enable nil
-	lsp-completion-provider :none
-	lsp-clojure-custom-server-command "~/.local/bin/clojure-lsp"
-	lsp-enable-completion-at-point nil ;; we use cape
+	lsp-completion-enable nil ;; we use cape
 	)
   (defun lsp-mode-setup-completion () ;; Configure orderless
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))

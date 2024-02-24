@@ -1,3 +1,7 @@
+;;; codester-completion.el --- summary -*- lexical-binding: t -*-
+;;; Commentary:
+;;; Code:
+
 ;; Key Chord helper
 (use-package which-key
   :config
@@ -101,3 +105,5 @@
 
 
 (provide 'codester-completion)
+
+;;; codester-completion.el ends here
