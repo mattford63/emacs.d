@@ -19,6 +19,8 @@
 
 (add-hook 'ns-system-appearance-change-functions #'my/apply-theme)
 
+(save-place-mode)
+
 ;; icons
 (use-package all-the-icons)
 

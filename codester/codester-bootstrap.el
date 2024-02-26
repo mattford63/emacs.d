@@ -2,8 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(message "Hello World!")
-
 (provide 'codester-bootstrap)
 
 ;;; codester-bootstrap.el ends here

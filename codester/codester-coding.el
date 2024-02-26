@@ -58,7 +58,8 @@
 		    (set (make-local-variable 'compile-command)
 			 "go build -v && go test -v && go vet"))
 		(add-hook 'before-save-hook 'lsp-format-buffer nil t)
-		(add-hook 'before-save-hook 'lsp-organize-imports nil t)))))
+		(add-hook 'before-save-hook 'lsp-organize-imports nil t)
+		(setq tab-width 4)))))
 
 ;; Language Server Frameworks
 (use-package lsp-mode
