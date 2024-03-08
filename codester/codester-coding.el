@@ -67,7 +67,7 @@
   (lsp-completion-provider :none)
   (lsp-clojure-custom-server-command "~/.local/bin/clojure-lsp")
   :init
-  (setq lsp-keymap-prefix "<f5>"
+  (setq lsp-keymap-prefix "C-c s"
 	lsp-headerline-breadcrumb-enable nil
 	lsp-completion-enable nil ;; we use cape
 	)
