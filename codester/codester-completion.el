@@ -22,12 +22,7 @@
   (global-corfu-mode))
 
 ;; Add extensions
-(use-package cape
-  :init
-  (defalias 'cape-cider-lsp
-    (cape-capf-super #'cider-complete-at-point #'lsp-completion-at-point))
-  (add-to-list 'completion-at-point-functions #'cape-cider-lsp)
-  (add-to-list 'completion-at-point-functions #'cape-file))
+(use-package cape)
 
 ;; Mini-buffer completion
 (use-package vertico
@@ -53,7 +48,7 @@
    ("M-g i" . consult-imenu-multi)
    ("C-c i" . consult-imenu)))
 
-;; Adds annotations to minibuffer 
+;; Adds annotations to minibuffer
 (use-package marginalia
   :config
   (marginalia-mode))
@@ -82,27 +77,11 @@
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-;; Project management
-(use-package projectile
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :init
-  (require 'tramp)
-  (setq projectile-project-search-path '(("~/src/" . 2) ("~/.emacs.d")))
-  (projectile-mode +1)
-  :bind (("<f6>" . projectile-ripgrep)
-         ("C-<f6>" . projectile-replace)
-         ("<f7>" . projectile-find-file)
-         ("<f8>" . projectile-run-vterm)
-         ("C-c p" . projectile-command-map))
-  :diminish)
-
 ;; Templating
 (use-package yasnippet
   :config
   (yas-global-mode 1))
 (use-package yasnippet-snippets)
-
 
 (provide 'codester-completion)
 

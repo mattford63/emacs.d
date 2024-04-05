@@ -1,6 +1,7 @@
 ;;; package --- summary -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
+
 ;; Version Control
 (use-package magit)
 (use-package forge)
@@ -8,14 +9,34 @@
   :bind (("C-c g l" . git-link)
 	 ("C-c g c" . git-link-commit)
 	 ("C-c g h" . git-link-homepage)))
+
 (use-package igist
+  :defines igist-current-user-name igist-auth-marker
   :config
   (setq igist-current-user-name "mattford63"
 	igist-auth-marker 'igist))
 
-;; Checking
-(use-package flycheck
-  :init (global-flycheck-mode))
+;; Treesitter
+(require 'treesit)
+(setq treesit-extra-load-path '("~/src/tree-sitter-module/dist"))
+
+(use-package combobulate
+    :preface
+    ;; You can customize Combobulate's key prefix here.
+    ;; Note that you may have to restart Emacs for this to take effect!
+    (setq combobulate-key-prefix "C-c o")
+    :hook
+      ((python-ts-mode . combobulate-mode)
+       (js-ts-mode . combobulate-mode)
+       (html-ts-mode . combobulate-mode)
+       (css-ts-mode . combobulate-mode)
+       (yaml-ts-mode . combobulate-mode)
+       (typescript-ts-mode . combobulate-mode)
+       (json-ts-mode . combobulate-mode)
+       (tsx-ts-mode . combobulate-mode))
+    ;; Amend this to the directory where you keep Combobulate's source
+    ;; code.
+    :load-path ("~/src/combobulate"))
 
 ;; YAML
 (use-package yaml-ts-mode
@@ -23,19 +44,32 @@
 	 ("\\.yml\\'" . yaml-ts-mode)))
 
 ;; Clojure
-(use-package clojure-mode
+(use-package clojure-mode)
+
+(use-package clojure-ts-mode
   :config
-  (setq clojure-docstring-fill-column 80)
-  :mode (("\\.clj\\'" . clojure-mode)
-	 ("\\.edn\\'" . clojure-mode)))
+  (push '(clojure-mode . clojure-ts-mode) major-mode-remap-alist)
+  (push '(clojurec-mode . clojurec-ts-mode) major-mode-remap-alist)
+  (push '(clojurescript-mode . clojurescript-ts-mode) major-mode-remap-alist)
+  :mode (("\\.clj\\'" . clojure-ts-mode)
+	 ("\\.edn\\'" . clojure-ts-mode)))
 
 (use-package cider
+  :preface
+  (defun my/cider-capf ()
+  (when (eglot-managed-p)
+    (setq-local completion-at-point-functions (list (cape-capf-super
+						     #'eglot-completion-at-point
+						     #'cider-complete-at-point
+						     #'cape-file)))))
+  :init
+  (setq	cider-xref-fn-depth 90)
   :config
   (setq nrepl-log-messages t
         cider-repl-display-in-current-window t
-        cider-repl-use-clojure-font-lock t
+        cider-repl-use-clojure-font-lock nil
         cider-prompt-save-file-on-load 'always-save
-        cider-font-lock-dynamically '(macro core function var)
+        ;;cider-font-lock-dynamically '(macro core function var)
         nrepl-hide-special-buffers t
         cider-overlays-use-font-lock t
 	cider-mode-line-show-connection t
@@ -44,8 +78,27 @@
 	cider-use-tooltips nil ; prefer lsp
 	)
   (cider-repl-toggle-pretty-printing)
-  :hook (cider-mode . (lambda () (add-to-list 'completion-at-point-functions #'cape-cider-lsp))))
+  :hook
+  (cider-mode . my/cider-capf))
 
+(use-package eglot
+  :ensure t
+  :preface
+  :hook (((clojure-mode clojurec-mode clojurescript-mode
+			clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
+			java-mode scala-mode go-mode)
+          . eglot-ensure))
+  :bind
+  (("C-c C-a" . 'eglot-code-actions)
+   ("C-c C-r" . 'eglot-rename))
+  :custom
+  (eglot-ignored-server-capabilities
+   '(:hoverProvider
+     :documentHighlightProvider
+     :documentRangeFormattingProvider
+     :documentOnTypeFormattingProvider
+     :colorProvider
+     :foldingRangeProvider)))
 ;; Java
 (use-package jarchive
   :config (jarchive-mode))
@@ -57,48 +110,21 @@
 		(if (not (string-match "go" compile-command))
 		    (set (make-local-variable 'compile-command)
 			 "go build -v && go test -v && go vet"))
-		(add-hook 'before-save-hook 'lsp-format-buffer nil t)
-		(add-hook 'before-save-hook 'lsp-organize-imports nil t)
 		(setq tab-width 4)))))
 
-;; Language Server Frameworks
-(use-package lsp-mode
-  :custom
-  (lsp-completion-provider :none)
-  (lsp-clojure-custom-server-command "~/.local/bin/clojure-lsp")
-  :init
-  (setq lsp-keymap-prefix "C-c s"
-	lsp-headerline-breadcrumb-enable nil
-	lsp-completion-enable nil ;; we use cape
-	)
-  (defun lsp-mode-setup-completion () ;; Configure orderless
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless)))
-  :hook
-  (((clojure-mode yaml-ts-mode) . lsp)
-   (go-mode . lsp)
-   (lsp-mode . lsp-enable-which-key-integration)
-   (lsp-completion-mode . lsp-mode-setup-completion)
-   (lsp-help-mode . visual-line-mode))
-  :bind
-  (:map lsp-mode-map
-	("C-c C-a" . lsp-execute-code-action)
-	("s-." . xref-find-references))
-  :commands
-  (lsp))
-
-(use-package lsp-ui :commands lsp-ui-mode)
-
-(use-package lsp-treemacs :commands lsp-treemacs-errors-list)
-
 ;; Code Helpers
-(use-package paredit
+(use-package smartparens
   :hook
-  ((emacs-lisp-mode
-    clojure-mode
-    go-mode)
-   . paredit-mode)
-  :diminish)
+  ((prog-mode text-mode markdown-mode)
+   . smartparens-strict-mode)
+  :diminish
+  :config
+  (require 'smartparens-config)
+  (sp-use-paredit-bindings)
+  ;; tree-sitter intergration for clojure
+  (sp-local-pair '(clojure-ts-mode clojurec-ts-mode clojurescript-ts-mode) "'" "'" :actions nil)
+  (sp-local-pair '(clojure-ts-mode clojurec-ts-mode clojurescript-ts-mode) "`'" "`'" :actions nil)
+  :after clojure-ts-mode)
 
 (use-package rainbow-mode
   :hook
@@ -114,10 +140,17 @@
   :ensure nil
   :diminish eldoc-mode
   :hook
-  ((prog-mode-hook . hs-minor-mode)))
+  ((prog-mode . hs-minor-mode)))
 
 (use-package expand-region
   :bind (("C-=" . 'er/expand-region)))
+
+(use-package flymake
+  :hook
+  ((prog-mode . flymake-mode))
+  :bind
+  (("M-g M-n" . 'flymake-goto-next-error)
+   ("M-g M-p" . 'flymake-goto-prev-error)))
 
 (provide 'codester-coding)
 

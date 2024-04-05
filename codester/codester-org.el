@@ -1,20 +1,5 @@
 (use-package org
-  :init
-  (defun jcs-retrieve-url ()
-    "Retrieve the URL of the current Safari page as a string."
-    (do-applescript "tell application \"Safari\" to return URL of document 1"))
-  
-  (defun jcs-get-link (hostp)
-    "Retrieve URL from current Safari page and prompt for description.
-   With the universal argument, return a link to the host only.
-   Insert an Org link at point."
-    (interactive "P")
-    (let* ((link (read-from-minibuffer "Link Description: "))
-           (result (jcs-retrieve-url))
-           (urlobj (url-generic-parse-url result))
-           (host (concat (url-type urlobj) "://" (url-host urlobj))))
-      (insert (format "[[%s][%s]]" (if hostp host (org-trim result)) link))))
-  
+  :init  
   (defun org-hide-properties ()
     "Hide all org-mode headline property drawers in buffer. Could be
      slow if it has a lot of overlays."
@@ -46,8 +31,7 @@
    ("C-c a" . org-agenda)
    ("C-c c" . org-capture)
    ("C-c M-l" . jcs-get-link)
-   ;;("C-c p" . org-toggle-properties)
-   )
+   ("C-c M-p" . org-toggle-properties))
   :config
   (setq org-agenda-files '("~/src/org/")
 	org-refile-targets '((org-agenda-files :maxlevel . 3))
@@ -88,6 +72,7 @@
   :bind-keymap ("C-c n d" . org-roam-dailies-map))
 
 (use-package mermaid-mode)
+
 (use-package ob-mermaid)
 
 (use-package phscroll

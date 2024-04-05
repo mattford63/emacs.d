@@ -6,6 +6,7 @@
 (setq auth-sources '("~/.authinfo.gpg"))
 (require 'epg)
 (setq epg-pinentry-mode 'loopback)
+
 ;; Shell
 (use-package exec-path-from-shell
   :config
@@ -20,9 +21,6 @@
 (global-auto-revert-mode t)
 
 ;; Package System Setup
-(require 'treesit)
-;;(setq treesit-extra-load-path '("~/src/tree-sitter-module/dist"))
-
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 (use-package diminish)
@@ -63,10 +61,8 @@
 (use-package ripgrep)
 
 ;; Browse
-
-(setq browse-url-browser-function 'xwidget-webkit-browse-url)
+;;(setq browse-url-browser-function 'xwidget-webkit-browse-url)
 
 (provide 'codester-system)
-
 ;;; codester-system.el ends here
 
