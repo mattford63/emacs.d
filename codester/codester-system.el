@@ -28,16 +28,18 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 
-(unless (package-installed-p 'vc-use-package)
-  (package-vc-install "https://github.com/slotThe/vc-use-package"))
-(require 'vc-use-package)
+;; (unless (package-installed-p 'vc-use-package)
+;;   (package-vc-install "https://github.com/slotThe/vc-use-package"))
+
+;; (require 'vc-use-package)
 
 ;; Terminal
 (use-package vterm
-  :vc (:fetcher github :repo akermu/emacs-libvterm))
+  ;;:vc (:fetcher github :repo akermu/emacs-libvterm)
+  )
 
 (use-package vterm-toggle
-  :vc (:fetcher github :repo jixiuf/vterm-toggle)
+  ;;:vc (:fetcher github :repo jixiuf/vterm-toggle)
   :bind (("C-`" . 'vterm-toggle)
 	 ("<C-return>" . 'vterm-toggle-insert-cd)))
 
@@ -62,6 +64,10 @@
 
 ;; Browse
 ;;(setq browse-url-browser-function 'xwidget-webkit-browse-url)
+
+(use-package direnv
+  :config
+  (direnv-mode))
 
 (provide 'codester-system)
 ;;; codester-system.el ends here

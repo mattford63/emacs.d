@@ -81,12 +81,14 @@
   :hook
   (cider-mode . my/cider-capf))
 
+(use-package nix-mode)
+
 (use-package eglot
   :ensure t
   :preface
   :hook (((clojure-mode clojurec-mode clojurescript-mode
-			clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
-			java-mode scala-mode go-mode)
+	   clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
+	   java-mode scala-mode go-mode)
           . eglot-ensure))
   :bind
   (("C-c C-a" . 'eglot-code-actions)
@@ -115,7 +117,7 @@
 ;; Code Helpers
 (use-package smartparens
   :hook
-  ((prog-mode text-mode markdown-mode)
+  ((prog-mode text-mode markdown-mode emacs-lisp-mode)
    . smartparens-strict-mode)
   :diminish
   :config
