@@ -3,6 +3,9 @@
 ;;; Code:
 
 ;; Bamboo HR
+(use-package ts)
+(use-package a)
+(use-package tablist)
 (use-package bhr
   :vc (:fetcher github :repo elken/bhr.el)
   :config
@@ -16,6 +19,11 @@
 (use-package elfeed-org
   :config
   (elfeed-org))
+
+;; Pintentry
+(use-package pinentry
+  :config
+  (pinentry-start))
 
 (provide 'codester-tools)
 

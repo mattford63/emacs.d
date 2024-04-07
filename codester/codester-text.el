@@ -4,28 +4,24 @@
 
 (provide 'codester-text)
 
-;;; codester-text.el ends here
 (use-package adaptive-wrap)
-
-;; Couple text mode settings to this package
 
 (use-package visual-fill-column
   :init
-  ;;(setq fill-column 110)
-  ;;(setq-default visual-fill-column-center-text t)
-  )
+  (setq fill-column 90)
+  (setq-default visual-fill-column-center-text t))
 
-;; (use-package lsp-grammarly
-;;   :ensure t)
+(use-package jinx
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
 
 (defun text-modes ()
   "Load text modes."
   (progn
-    (flyspell-mode)
-    ;; (visual-line-mode)
-    ;; (visual-fill-column-mode)
-    ;; (adaptive-wrap-prefix-mode)
-    ))
+    (jinx-mode)
+    (visual-line-mode)
+    (visual-fill-column-mode)
+    (adaptive-wrap-prefix-mode)))
 
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
@@ -40,3 +36,4 @@
 (provide 'codester-text)
 
 ;;; codester-text.el ends here
+

@@ -12,7 +12,7 @@
           (overlay-put ov_this 'display "")
           (overlay-put ov_this 'hidden-prop-drawer t))))
     (put 'org-toggle-properties-hide-state 'state 'hidden))
-  
+
   (defun org-show-properties ()
     "Show all org-mode property drawers hidden by org-hide-properties."
     (interactive)

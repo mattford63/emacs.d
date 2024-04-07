@@ -63,7 +63,7 @@
 (use-package ripgrep)
 
 ;; Browse
-;;(setq browse-url-browser-function 'xwidget-webkit-browse-url)
+(setq browse-url-browser-function 'xwidget-webkit-browse-url)
 
 (use-package direnv
   :config

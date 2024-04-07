@@ -2,6 +2,9 @@
 ;;; Commentary:
 ;;; Code:
 
+;; Compilation
+(global-set-key ["C-c C-c"] 'compile)
+
 ;; Version Control
 (use-package magit)
 (use-package forge)
@@ -81,7 +84,10 @@
   :hook
   (cider-mode . my/cider-capf))
 
-(use-package nix-mode)
+(use-package nix-mode
+  :hook ((nix-mode . (lambda ()
+		       (set (make-local-variable 'compile-command)
+			    "home-manager switch")))))
 
 (use-package eglot
   :ensure t
@@ -117,7 +123,7 @@
 ;; Code Helpers
 (use-package smartparens
   :hook
-  ((prog-mode text-mode markdown-mode emacs-lisp-mode)
+  ((prog-mode text-mode markdown-mode emacs-lisp-mode lisp-mode)
    . smartparens-strict-mode)
   :diminish
   :config
@@ -125,8 +131,7 @@
   (sp-use-paredit-bindings)
   ;; tree-sitter intergration for clojure
   (sp-local-pair '(clojure-ts-mode clojurec-ts-mode clojurescript-ts-mode) "'" "'" :actions nil)
-  (sp-local-pair '(clojure-ts-mode clojurec-ts-mode clojurescript-ts-mode) "`'" "`'" :actions nil)
-  :after clojure-ts-mode)
+  (sp-local-pair '(clojure-ts-mode clojurec-ts-mode clojurescript-ts-mode) "`'" "`'" :actions nil))
 
 (use-package rainbow-mode
   :hook

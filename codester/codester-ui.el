@@ -3,6 +3,8 @@
 ;;; Code:
 
 (setq inhibit-startup-screen t)
+(setq default-frame-alist '((font . "FiraCode Nerd Font 11")
+			    (vertical-scroll-bars . nil)))
 (tool-bar-mode -1)
 (use-package doom-themes)
 (load-theme 'doom-one)
@@ -14,9 +16,6 @@
 (use-package all-the-icons)
 
 (use-package nerd-icons)
-
-;;(set-fontset-font t 'symbol "Noto Color Emoji" nil 'append)
-(set-frame-font "FiraCode Nerd Font 11" nil t)
 
 (use-package doom-modeline
   :init (doom-modeline-mode))
