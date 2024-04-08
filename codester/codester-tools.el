@@ -15,7 +15,10 @@
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
 ;; News Reader
-(use-package elfeed)
+(use-package elfeed
+  :bind
+  ("C-c e" . 'elfeed))
+
 (use-package elfeed-org
   :config
   (elfeed-org))
