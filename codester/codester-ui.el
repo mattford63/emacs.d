@@ -6,8 +6,8 @@
 (setq default-frame-alist '((font . "FiraCode Nerd Font 11")
 			    (vertical-scroll-bars . nil)))
 (tool-bar-mode -1)
-(use-package doom-themes)
-(load-theme 'doom-one)
+;;(use-package doom-themes)
+;;(load-theme 'doom-one)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (save-place-mode)
@@ -19,8 +19,10 @@
 (use-package nerd-icons)
 
 (use-package doom-modeline
-  :init (doom-modeline-mode))
-
+  :init (doom-modeline-mode)
+  :config
+  (setq doom-modeline-highlight-modified-buffer-name nil))
+ 
 (use-package doom-themes)
 
 (use-package emojify
@@ -31,7 +33,6 @@
   (setq emojify-display-style 'unicode)
   (setq emojify-emoji-styles '(unicode))
   (bind-key* (kbd "C-c .") #'emojify-insert-emoji))
-
 
 (load-theme 'doom-one)
 
@@ -106,8 +107,6 @@
                           "Fl"  "Tl"  "fi"  "fj"  "fl"  "ft"
                           ;; The few not covered by the regexps.
                           "{|"  "[|"  "]#"  "(*"  "}#"  "$>"  "^="))
-  ;; Enables ligature checks globally in all buffers. You can also do it
-  ;; per mode with `ligature-mode'.
   (global-ligature-mode t))
 
 ;;; codester-ui.el ends here
