@@ -11,6 +11,7 @@
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (save-place-mode)
+(setq left-fringe-width 12)
 
 ;; icons
 (use-package all-the-icons)
