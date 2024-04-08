@@ -15,13 +15,17 @@
   :bind (("M-$" . jinx-correct)
          ("C-M-$" . jinx-languages)))
 
+(use-package flymake-proselint)
+
 (defun text-modes ()
   "Load text modes."
   (progn
     (jinx-mode)
     (visual-line-mode)
     (visual-fill-column-mode)
-    (adaptive-wrap-prefix-mode)))
+    (adaptive-wrap-prefix-mode)
+    (flymake-mode)
+    (flymake-proselint-setup)))
 
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)

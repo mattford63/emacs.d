@@ -34,8 +34,6 @@
   (setq emojify-emoji-styles '(unicode))
   (bind-key* (kbd "C-c .") #'emojify-insert-emoji))
 
-(load-theme 'doom-one)
-
 (use-package multiple-cursors)
 
 (provide 'codester-ui)

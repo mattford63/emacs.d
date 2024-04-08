@@ -31,12 +31,18 @@
   (pinentry-start))
 
 ;; Mu4e
-;; https://macowners.club/posts/email-emacs-mu4e-macos/#storing-trusted-root-certificates
 (require 'mu4e)
 (keymap-global-set "C-c m" #'mu4e)
+
+(defface mu4e-header-highlight-face
+  `((t :inherit hl-line :weight normal :underline t
+       ,@(and (>= emacs-major-version 27) '(:extend t))))
+  "Face for the header at point."
+  :group 'mu4e-faces)
+
 (setq mu4e-split-view 'horizontal)
 (setq mu4e-headers-visible-columns 120)
-(setq mu4e-headers-fields '((:human-date . 12)
+(setq mu4e-headers-fields '((:date . 12)
 			    (:flags . 6)
 			    (:from . 22)
 			    (:subject)))
@@ -58,13 +64,21 @@
 	("/juxt/[Gmail]/All Mail" . ?h)))
 
 (add-to-list 'mu4e-bookmarks
-             `(:name "Inbox - iCloud"
-               :query "maildir:/icloud/INBOX"
-               :key ?i) t)
-(add-to-list 'mu4e-bookmarks
-             `(:name "Inbox - JUXT"
-               :query "maildir:/juxt/INBOX"
-               :key ?j) t)
+             `(:name "Griffo"
+	       :query "sera"
+               :key ?s) t)
+
+(require 'smtpmail)
+(setq message-kill-buffer-on-exit t)
+(setq message-sendmail-envelope-from 'header)
+
+;; use .authinfo.gpg for host:port:user:pass settings
+(setq
+ message-send-mail-function 'smtpmail-send-it
+ smtpmail-stream-type 'starttls
+ smtpmail-default-smtp-server "smtp.mail.me.com"
+ smtpmail-smtp-service 587
+ smtpmail-servers-requiring-authorization ".*")
 
 (setq mu4e-contexts
       `(,(make-mu4e-context
@@ -81,10 +95,11 @@
                   (user-full-name . "Matt Ford")
                   (mu4e-drafts-folder . "/icloud/Drafts")
                   (mu4e-refile-folder . "/icloud/Archive")
+		  (mu4e-sent-messages-behavior . (lambda () 'sent))
                   (mu4e-sent-folder . "/icloud/Sent Messages")
-                  (mu4e-trash-folder . "/icloud/Deleted Messages")))
-
-        ,(make-mu4e-context
+                  (mu4e-trash-folder . "/icloud/Deleted Messages")
+		  (smtpmail-smtp-server . "smtp.mail.me.com")))
+	,(make-mu4e-context
           :name "juxt"
           :enter-func
           (lambda () (mu4e-message "Enter JUXT context"))
@@ -99,11 +114,22 @@
                   (user-full-name . "Matt Ford")
                   (mu4e-drafts-folder . "/juxt/[Gmail]/Drafts")
                   (mu4e-refile-folder . "/juxt/[Gmail]/All Mail")
-                  (mu4e-sent-folder . "/juxt/[Gmail]/Sent Mail")
-                  (mu4e-trash-folder . "/juxt/[Gmail]/Bin")))))
+		  (mu4e-sent-messages-behavior . (lambda () 'delete))
+		  (mu4e-sent-folder . "/juxt/[Gmail]/Sent Mail")
+		  (mu4e-trash-folder . "/juxt/[Gmail]/Bin")
+		  (smtpmail-smtp-server . "smtp.gmail.com")))))
 
 (setq mu4e-context-policy 'pick-first)
 (setq mu4e-compose-context-policy 'ask)
+
+(defun message-modes ()
+  "Load message modes."
+  (progn
+    (jinx-mode)
+    (flymake-mode)
+    (flymake-proselint-setup)))
+
+(add-hook 'message-mode-hook 'message-modes)
 
 (use-package mu4e-column-faces
   :config
@@ -130,7 +156,6 @@
 
 ;;   ;;(define-key mu4e-headers-mode-map (kbd "i") #'mu4e-views-mu4e-view-as-nonblocked-html)
 ;;   )
-
 
 (provide 'codester-tools)
 
