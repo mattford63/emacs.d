@@ -41,7 +41,7 @@
 (setq mu4e-maildir "~/.maildir")
 (setq mu4e-get-mail-command (concat (executable-find "mbsync") " -a"))
 (setq mu4e-update-interval 300)
-(setq mu4e-attachment-dir "~/Downloads")
+(setq mu4e-attachment-dir "~/downloads")
 (setq mu4e-change-filenames-when-moving t)
 (setq mu4e-user-mail-address-list '("mattford63@icloud.com"
                                     "mattford63@gmail.com"
@@ -111,23 +111,23 @@
   :config
   (mu4e-marker-icons-mode))
 
-(use-package mu4e-views
-  :config
-  (setq mu4e-views-default-view-method "html-nonblock")
-  (mu4e-views-mu4e-use-view-msg-method "html-nonblock")
-  (setq mu4e-views-next-previous-message-behaviour 'stick-to-current-window)
-  (setq mu4e-views-auto-view-selected-message t)
-  (define-key mu4e-headers-mode-map (kbd "v") #'mu4e-views-mu4e-select-view-msg-method)
-  (define-key mu4e-headers-mode-map (kbd "M-n") #'mu4e-views-cursor-msg-view-window-down)
-  (define-key mu4e-headers-mode-map (kbd "M-p") #'mu4e-views-cursor-msg-view-window-up)
-  (define-key mu4e-headers-mode-map (kbd "f") #'mu4e-views-toggle-auto-view-selected-message)
-  (define-key mu4e-headers-mode-map (kbd "C-c C-=") #'xwidget-webkit-zoom-in)
-  (define-key mu4e-headers-mode-map (kbd "C-c C--") #'xwidget-webkit-zoom-out)
-  (define-key xwidget-webkit-mode-map (kbd "C-c C-=") #'xwidget-webkit-zoom-in)
-  (define-key xwidget-webkit-mode-map (kbd "C-c C--") #'xwidget-webkit-zoom-out)
+;; (use-package mu4e-views
+;;   :config
+;;   (setq mu4e-views-default-view-method "html-nonblock")
+;;   (mu4e-views-mu4e-use-view-msg-method "html-nonblock")
+;;   (setq mu4e-views-next-previous-message-behaviour 'stick-to-current-window)
+;;   (setq mu4e-views-auto-view-selected-message t)
+;;   (define-key mu4e-headers-mode-map (kbd "v") #'mu4e-views-mu4e-select-view-msg-method)
+;;   (define-key mu4e-headers-mode-map (kbd "M-n") #'mu4e-views-cursor-msg-view-window-down)
+;;   (define-key mu4e-headers-mode-map (kbd "M-p") #'mu4e-views-cursor-msg-view-window-up)
+;;   (define-key mu4e-headers-mode-map (kbd "f") #'mu4e-views-toggle-auto-view-selected-message)
+;;   (define-key mu4e-headers-mode-map (kbd "C-c C-=") #'xwidget-webkit-zoom-in)
+;;   (define-key mu4e-headers-mode-map (kbd "C-c C--") #'xwidget-webkit-zoom-out)
+;;   (define-key xwidget-webkit-mode-map (kbd "C-c C-=") #'xwidget-webkit-zoom-in)
+;;   (define-key xwidget-webkit-mode-map (kbd "C-c C--") #'xwidget-webkit-zoom-out)
 
-  ;;(define-key mu4e-headers-mode-map (kbd "i") #'mu4e-views-mu4e-view-as-nonblocked-html)
-  )
+;;   ;;(define-key mu4e-headers-mode-map (kbd "i") #'mu4e-views-mu4e-view-as-nonblocked-html)
+;;   )
 
 
 (provide 'codester-tools)
