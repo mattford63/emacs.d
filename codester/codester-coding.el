@@ -81,6 +81,12 @@
 	cider-use-tooltips nil ; prefer lsp
 	)
   (cider-repl-toggle-pretty-printing)
+  (defface cider-fringe-good-face
+    '((((class color) (background light)) :foreground "darkgreen")
+      (((class color) (background dark)) :foreground "darkgreen"))
+    "Face used on the fringe indicator for successful evaluation."
+  :group 'cider)
+
   :hook
   (cider-mode . my/cider-capf))
 
