@@ -22,6 +22,16 @@
 
 (use-package doom-themes)
 
+(use-package emojify
+  :config
+  (when (member "Noto Color Emoji" (font-family-list))
+    (set-fontset-font
+     t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend))
+  (setq emojify-display-style 'unicode)
+  (setq emojify-emoji-styles '(unicode))
+  (bind-key* (kbd "C-c .") #'emojify-insert-emoji))
+
+
 (load-theme 'doom-one)
 
 (use-package multiple-cursors)
