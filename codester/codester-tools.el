@@ -32,7 +32,7 @@
 ;; https://macowners.club/posts/email-emacs-mu4e-macos/#storing-trusted-root-certificates
 (require 'mu4e)
 (keymap-global-set "C-c m" #'mu4e)
-(setq mu4e-split-view 'vertical)
+(setq mu4e-split-view 'horizontal)
 (setq mu4e-headers-visible-columns 120)
 (setq mu4e-headers-fields '((:human-date . 12)
 			    (:flags . 6)
@@ -121,6 +121,11 @@
   (define-key mu4e-headers-mode-map (kbd "M-n") #'mu4e-views-cursor-msg-view-window-down)
   (define-key mu4e-headers-mode-map (kbd "M-p") #'mu4e-views-cursor-msg-view-window-up)
   (define-key mu4e-headers-mode-map (kbd "f") #'mu4e-views-toggle-auto-view-selected-message)
+  (define-key mu4e-headers-mode-map (kbd "C-c C-=") #'xwidget-webkit-zoom-in)
+  (define-key mu4e-headers-mode-map (kbd "C-c C--") #'xwidget-webkit-zoom-out)
+  (define-key xwidget-webkit-mode-map (kbd "C-c C-=") #'xwidget-webkit-zoom-in)
+  (define-key xwidget-webkit-mode-map (kbd "C-c C--") #'xwidget-webkit-zoom-out)
+
   ;;(define-key mu4e-headers-mode-map (kbd "i") #'mu4e-views-mu4e-view-as-nonblocked-html)
   )
 
