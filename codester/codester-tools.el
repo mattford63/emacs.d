@@ -9,7 +9,9 @@
 (use-package bhr
   :vc (:fetcher github :repo elken/bhr.el)
   :config
-  (setq bhr-org-name "juxtpro"))
+  (setq bhr-org-name "juxtpro")
+  :bind
+  ("C-c b" . 'bhr-submit-multiple))
 
 ;; Tramp
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
