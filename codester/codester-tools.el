@@ -34,12 +34,6 @@
 (require 'mu4e)
 (keymap-global-set "C-c m" #'mu4e)
 
-(defface mu4e-header-highlight-face
-  `((t :inherit hl-line :weight normal :underline t
-       ,@(and (>= emacs-major-version 27) '(:extend t))))
-  "Face for the header at point."
-  :group 'mu4e-faces)
-
 (setq mu4e-split-view 'horizontal)
 (setq mu4e-headers-visible-columns 120)
 (setq mu4e-headers-fields '((:date . 12)
@@ -133,7 +127,13 @@
 
 (use-package mu4e-column-faces
   :config
-  (mu4e-column-faces-mode))
+  (mu4e-column-faces-mode)
+  :preface
+  (defface mu4e-header-highlight-face
+  `((t :inherit hl-line :weight normal :underline t
+       ,@(and (>= emacs-major-version 27) '(:extend t))))
+  "Face for the header at point."
+  :group 'mu4e-faces))
 
 (use-package mu4e-marker-icons
   :config
