@@ -5,5 +5,6 @@
 
 *** Clojure                                                       :clojure:
 **** https://planet.clojure.in/atom.xml
-** Life
+**** https://www.youtube.com/feeds/videos.xml?channel_id=UCaLlzGqiPE2QRj6sSOawJRg
+** Life https://www.youtube.com/feeds/videos.xml?channel_id=UCaLlzGqiPE2QRj6sSOawJRg
 *** https://xkcd.com/atom.xml :funny:

@@ -28,18 +28,9 @@
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 
-;; (unless (package-installed-p 'vc-use-package)
-;;   (package-vc-install "https://github.com/slotThe/vc-use-package"))
-
-;; (require 'vc-use-package)
-
 ;; Terminal
-(use-package vterm
-  ;;:vc (:fetcher github :repo akermu/emacs-libvterm)
-  )
-
+(use-package vterm)
 (use-package vterm-toggle
-  ;;:vc (:fetcher github :repo jixiuf/vterm-toggle)
   :bind (("C-`" . 'vterm-toggle)
 	 ("<C-return>" . 'vterm-toggle-insert-cd)))
 
@@ -63,7 +54,18 @@
 (use-package ripgrep)
 
 ;; Browse
-(setq browse-url-browser-function 'xwidget-webkit-browse-url)
+(add-hook 'window-configuration-change-hook
+	  (lambda ()
+	    (when (equal major-mode 'xwidget-webkit-mode)
+	      (xwidget-webkit-adjust-size-dispatch)
+	      (set-xwidget-query-on-exit-flag (xwidget-webkit-current-session) nil))))
+(setq browse-url-browser-function 'browse-url-chromium)
+(setq browse-url-secondary-browser-function 'xwidget-webkit-browse-url)
+(setq browse-url-generic-program "chromium")
+(require 'xwidget)
+(define-key xwidget-webkit-mode-map (kbd "C-c C-=") #'xwidget-webkit-zoom-in)
+(define-key xwidget-webkit-mode-map (kbd "C-c C--") #'xwidget-webkit-zoom-out)
+
 
 (use-package direnv
   :config
