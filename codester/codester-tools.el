@@ -42,6 +42,7 @@
   (pinentry-start))
 
 ;; Mu4e
+;; mu init -m ~/.maildir --my-address matt@dancingfrog.co.uk --my-address mattford63@icloud.com --my-address mattford63@gmail.com --my-address mtf@juxt.pro
 (use-package mu4e
   :ensure nil
   :config

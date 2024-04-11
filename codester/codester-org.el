@@ -99,9 +99,6 @@
   :config
   (setq org-download-screenshot-method "screencapture -i %s"))
 
-(use-package org-roam
-  :vc (:fetcher github :repo org-roam/org-roam))
-
 (use-package orgit)
 
 (require 'ox-confluence)

@@ -21,6 +21,8 @@
 
 ;; Treesitter
 (require 'treesit)
+(use-package tree-sitter-langs)
+
 (setq treesit-extra-load-path '("~/src/tree-sitter-module/dist"))
 
 (use-package combobulate
@@ -96,8 +98,6 @@
 			    "home-manager switch")))))
 
 (use-package eglot
-  :ensure t
-  :preface
   :hook (((clojure-mode clojurec-mode clojurescript-mode
 	   clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
 	   java-mode scala-mode go-mode)
@@ -113,6 +113,7 @@
      :documentOnTypeFormattingProvider
      :colorProvider
      :foldingRangeProvider)))
+
 ;; Java
 (use-package jarchive
   :config (jarchive-mode))
@@ -133,6 +134,23 @@
    . smartparens-strict-mode)
   :diminish
   :config
+  ;; This is fixed on master but not made into melpa yet
+  (defalias 'sp--syntax-class-to-char 'syntax-class-to-char)
+  (when (version< emacs-version "28.1")
+    ;; Ripped from Emacs 27.0 subr.el.
+    ;; See Github Issue#946 and Emacs bug#31692.
+    (defun sp--syntax-class-to-char (syntax)
+      "Return the syntax char of CLASS, described by an integer.
+For example, if SYNTAX is word constituent (the integer 2), the
+character w (119) is returned.
+
+This is a compat function for `syntax-class-to-char'."
+      (let ((spec " .w_()'\"$\\/<>@!|"))
+        (if (and (fixnump syntax)
+                 (>= syntax 0)
+                 (< syntax 16))
+            (aref spec syntax)
+          (error "args out of range")))))
   (require 'smartparens-config)
   (sp-use-paredit-bindings)
   ;; tree-sitter intergration for clojure
@@ -152,8 +170,9 @@
 (use-package emacs
   :ensure nil
   :diminish eldoc-mode
-  :hook
-  ((prog-mode . hs-minor-mode)))
+  ;;:hook
+  ;;((prog-mode . hs-minor-mode))
+  )
 
 (use-package expand-region
   :bind (("C-=" . 'er/expand-region)))

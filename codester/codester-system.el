@@ -7,12 +7,6 @@
 (require 'epg)
 (setq epg-pinentry-mode 'loopback)
 
-;; Shell
-(use-package exec-path-from-shell
-  :config
-  (when (memq window-system '(pgtk))
-    (exec-path-from-shell-initialize)))
-
 ;; Backups/Files
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
@@ -24,7 +18,9 @@
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 (use-package diminish)
-
+(unless (package-installed-p 'vc-use-package) ;; remove when Emacs 30+
+  (package-vc-install "https://github.com/slotThe/vc-use-package"))
+(require 'vc-use-package)
 (add-to-list 'package-archives
              '("melpa" . "http://melpa.org/packages/") t)
 
@@ -66,7 +62,7 @@
 (define-key xwidget-webkit-mode-map (kbd "C-c C-=") #'xwidget-webkit-zoom-in)
 (define-key xwidget-webkit-mode-map (kbd "C-c C--") #'xwidget-webkit-zoom-out)
 
-
+;; Automatice Environment
 (use-package direnv
   :config
   (direnv-mode)
