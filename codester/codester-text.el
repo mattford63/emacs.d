@@ -37,6 +37,8 @@
   :hook
   ((gfm-mode markdown-mode) . text-modes))
 
+(use-package pdf-tools)
+
 (provide 'codester-text)
 
 ;;; codester-text.el ends here
