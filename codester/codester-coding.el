@@ -75,7 +75,7 @@
         cider-repl-use-clojure-font-lock nil
         cider-prompt-save-file-on-load 'always-save
         ;;cider-font-lock-dynamically '(macro core function var)
-        nrepl-hide-special-buffers t
+        nrepl-hide-special-buffers t 
         cider-overlays-use-font-lock t
 	cider-mode-line-show-connection t
 	cider-eldoc-display-for-symbol-at-point nil ; prefer lsp
@@ -83,14 +83,15 @@
 	cider-use-tooltips nil ; prefer lsp
 	)
   (cider-repl-toggle-pretty-printing)
-  (defface cider-fringe-good-face
-    '((((class color) (background light)) :foreground "darkgreen")
-      (((class color) (background dark)) :foreground "darkgreen"))
-    "Face used on the fringe indicator for successful evaluation."
-  :group 'cider)
-
+  (custom-set-faces
+   `(cider-fringe-good-face
+     ((((class color) (background light)) :foreground "darkgreen")
+      (((class color) (background dark)) :foreground "darkgreen")))
+  (remove-hook 'eldoc-documentation-functions #'cider-eldoc))
   :hook
   (cider-mode . my/cider-capf))
+
+
 
 (use-package nix-mode
   :hook ((nix-mode . (lambda ()
@@ -107,12 +108,14 @@
    ("C-c C-r" . 'eglot-rename))
   :custom
   (eglot-ignored-server-capabilities
-   '(:hoverProvider
-     :documentHighlightProvider
-     :documentRangeFormattingProvider
-     :documentOnTypeFormattingProvider
+   '(;;:hoverProvider
+     ;;:documentHighlightProvider
+     ;;:documentRangeFormattingProvider
+     ;;:documentOnTypeFormattingProvider
      :colorProvider
-     :foldingRangeProvider)))
+     :foldingRangeProvider
+     ;;:signatureHelpProvider
+     )))
 
 ;; Java
 (use-package jarchive

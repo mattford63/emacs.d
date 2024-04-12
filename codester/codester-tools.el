@@ -145,11 +145,10 @@
 (use-package mu4e-column-faces
   :config
   (mu4e-column-faces-mode)
-  (defface mu4e-header-highlight-face
-  `((t :inherit hl-line :weight normal :underline t
-       ,@(and (>= emacs-major-version 27) '(:extend t))))
-  "Face for the header at point."
-  :group 'mu4e-faces))
+  (custom-set-faces
+   `(mu4e-header-highlight-face
+     ((t :inherit hl-line :weight normal :underline t
+	 ,@(and (>= emacs-major-version 27) '(:extend t)))))))
 
 (use-package mu4e-marker-icons
   :ensure
