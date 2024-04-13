@@ -187,6 +187,11 @@ This is a compat function for `syntax-class-to-char'."
   (("M-g M-n" . 'flymake-goto-next-error)
    ("M-g M-p" . 'flymake-goto-prev-error)))
 
+(use-package docker-compose-mode)
+(use-package dockerfile-mode)
+(use-package docker
+  :bind ("C-c d" . docker))
+
 (provide 'codester-coding)
 
 ;;; codester-coding.el ends here
