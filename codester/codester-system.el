@@ -3,6 +3,8 @@
 ;;; Code:
 
 ;; Auth sources
+(setenv "SSH_AUTH_SOCK" "/run/user/1000/gnupg/S.gpg-agent.ssh")
+
 (setq auth-sources '("~/.authinfo.gpg"))
 (require 'epg)
 (setq epg-pinentry-mode 'loopback)
@@ -55,9 +57,9 @@
 	    (when (equal major-mode 'xwidget-webkit-mode)
 	      (xwidget-webkit-adjust-size-dispatch)
 	      (set-xwidget-query-on-exit-flag (xwidget-webkit-current-session) nil))))
-(setq browse-url-browser-function 'browse-url-chromium)
+(setq browse-url-browser-function 'browse-url-chrome)
 (setq browse-url-secondary-browser-function 'xwidget-webkit-browse-url)
-(setq browse-url-generic-program "chromium")
+(setq browse-url-generic-program "google-chrome-stable")
 (require 'xwidget)
 (define-key xwidget-webkit-mode-map (kbd "C-c C-=") #'xwidget-webkit-zoom-in)
 (define-key xwidget-webkit-mode-map (kbd "C-c C--") #'xwidget-webkit-zoom-out)

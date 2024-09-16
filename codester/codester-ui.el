@@ -3,11 +3,11 @@
 ;;; Code:
 
 (setq inhibit-startup-screen t)
-(setq default-frame-alist '((font . "FiraCode Nerd Font 11")
+(setq default-frame-alist '((font . "FiraCode Nerd Font 12")
 			    (vertical-scroll-bars . nil)))
 (tool-bar-mode -1)
-;;(use-package doom-themes)
-;;(load-theme 'doom-one)
+(use-package doom-themes)
+(load-theme 'doom-one)
 (scroll-bar-mode -1)
 (menu-bar-mode -1)
 (save-place-mode)
