@@ -1,4 +1,4 @@
-;;; package --- summary -*- lexical-binding: t -*-
+;;; codester-coding.el --- summary -*- lexical-binding: t -*-
 ;;; Commentary:
 ;;; Code:
 
@@ -20,33 +20,32 @@
 	igist-auth-marker 'igist))
 
 ;; Treesitter
-(require 'treesit)
-(use-package tree-sitter-langs)
+(setq treesit-language-source-alist
+      '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
+        (go . ("https://github.com/tree-sitter/tree-sitter-go" "v0.20.0"))
+        (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
+        (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
+        (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+        (markdown . "https://github.com/ikatyang/tree-sitter-markdown")
+        (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
+        (rust . "https://github.com/tree-sitter/tree-sitter-rust")
+        (toml . ("https://github.com/tree-sitter/tree-sitter-toml" "v0.5.1"))
+        (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
+        (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
+        (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
 
-(setq treesit-extra-load-path '("~/src/tree-sitter-module/dist"))
-
-(use-package combobulate
-    :preface
-    ;; You can customize Combobulate's key prefix here.
-    ;; Note that you may have to restart Emacs for this to take effect!
-    (setq combobulate-key-prefix "C-c o")
-    :hook
-      ((python-ts-mode . combobulate-mode)
-       (js-ts-mode . combobulate-mode)
-       (html-ts-mode . combobulate-mode)
-       (css-ts-mode . combobulate-mode)
-       (yaml-ts-mode . combobulate-mode)
-       (typescript-ts-mode . combobulate-mode)
-       (json-ts-mode . combobulate-mode)
-       (tsx-ts-mode . combobulate-mode))
-    ;; Amend this to the directory where you keep Combobulate's source
-    ;; code.
-    :load-path ("~/src/combobulate"))
-
-;; YAML
-(use-package yaml-ts-mode
-  :mode (("\\.yaml\\'" . yaml-ts-mode)
-	 ("\\.yml\\'" . yaml-ts-mode)))
+(dolist (mapping
+         '((python-mode . python-ts-mode)
+           (css-mode . css-ts-mode)
+           (typescript-mode . typescript-ts-mode)
+           (js2-mode . js-ts-mode)
+           (bash-mode . bash-ts-mode)
+           (conf-toml-mode . toml-ts-mode)
+           (go-mode . go-ts-mode)
+           (css-mode . css-ts-mode)
+           (json-mode . json-ts-mode)
+           (js-json-mode . json-ts-mode)))
+  (add-to-list 'major-mode-remap-alist mapping)
 
 ;; Clojure
 (use-package clojure-mode)
@@ -75,7 +74,7 @@
         cider-repl-use-clojure-font-lock nil
         cider-prompt-save-file-on-load 'always-save
         ;;cider-font-lock-dynamically '(macro core function var)
-        nrepl-hide-special-buffers t 
+        nrepl-hide-special-buffers t
         cider-overlays-use-font-lock t
 	cider-mode-line-show-connection t
 	cider-eldoc-display-for-symbol-at-point nil ; prefer lsp
@@ -158,7 +157,7 @@ This is a compat function for `syntax-class-to-char'."
                  (>= syntax 0)
                  (< syntax 16))
             (aref spec syntax)
-          (error "args out of range")))))
+          (error "Args out of range")))))
   (require 'smartparens-config)
   (sp-use-paredit-bindings)
   ;; tree-sitter intergration for clojure
