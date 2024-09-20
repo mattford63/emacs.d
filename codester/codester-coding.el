@@ -101,21 +101,26 @@
 (use-package eglot
   :hook (((clojure-mode clojurec-mode clojurescript-mode
 	   clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
-	   java-mode scala-mode go-mode)
+	   scala-mode go-mode)
           . eglot-ensure))
   :bind
   (("C-c C-a" . 'eglot-code-actions)
    ("C-c C-r" . 'eglot-rename))
-  :custom
-  (eglot-ignored-server-capabilities
-   '(;;:hoverProvider
-     ;;:documentHighlightProvider
-     ;;:documentRangeFormattingProvider
-     ;;:documentOnTypeFormattingProvider
-     :colorProvider
-     :foldingRangeProvider
-     ;;:signatureHelpProvider
-     )))
+  ;; :custom
+  ;; (eglot-ignored-server-capabilities
+  ;;  '(;;:hoverProvider
+  ;;    ;;:documentHighlightProvider
+  ;;    ;;:documentRangeFormattingProvider
+  ;;    ;;:documentOnTypeFormattingProvider
+  ;;    :colorProvider
+  ;;    :foldingRangeProvider
+  ;;    ;;:signatureHelpProvider
+  ;;    ))
+  )
+
+(use-package eglot-java
+  :hook
+  ((java-mode . eglot-java-mode)))
 
 ;; Java
 (use-package jarchive
