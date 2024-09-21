@@ -38,6 +38,8 @@
 
 (provide 'codester-ui)
 
+(winner-mode 1)
+
 (use-package ligature
   :config
   ;; Enable the "www" ligature in every possible major mode
