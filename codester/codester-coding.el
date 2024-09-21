@@ -90,8 +90,6 @@
   :hook
   (cider-mode . my/cider-capf))
 
-
-
 (use-package nix-mode
   :hook ((nix-mode . (lambda ()
 		       (set (make-local-variable 'compile-command)
@@ -119,7 +117,8 @@
 
 (use-package eglot-java
   :hook
-  ((java-mode . eglot-java-mode)))
+  ((java-mode . eglot-java-mode)
+   (java-ts-mode .eglot-java-mode)))
 
 ;; Java
 (use-package jarchive
