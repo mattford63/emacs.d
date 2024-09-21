@@ -98,7 +98,7 @@
 (use-package eglot
   :hook (((clojure-mode clojurec-mode clojurescript-mode
 	   clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
-	   scala-mode go-mode)
+	   scala-mode go-mode java-mode java-ts-mode)
           . eglot-ensure))
   :bind
   (("C-c C-a" . 'eglot-code-actions)
@@ -118,7 +118,14 @@
 (use-package eglot-java
   :hook
   ((java-mode . eglot-java-mode)
-   (java-ts-mode .eglot-java-mode)))
+   (java-ts-mode .eglot-java-mode))
+  :bind
+  ("C-c l n" . 'eglot-java-file-new)
+  ("C-c l x" . 'eglot-java-run-main)
+  ("C-c l t" . 'eglot-java-run-test)
+  ("C-c l N" . 'eglot-java-project-new)
+  ("C-c l T" . 'eglot-java-project-build-task)
+  ("C-c l R" . 'eglot-java-project-build-refresh))
 
 ;; Java
 (use-package jarchive
