@@ -5,6 +5,8 @@
 ;; Compilation
 (global-set-key ["C-c C-c"] 'compile)
 
+(setq tab-width 4)
+
 ;; Version Control
 (use-package magit)
 (use-package forge)
@@ -20,52 +22,52 @@
 	igist-auth-marker 'igist))
 
 ;; Treesitter
-(setq treesit-language-source-alist
-      '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
-        (go . ("https://github.com/tree-sitter/tree-sitter-go" "v0.20.0"))
-        (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
-        (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
-        (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
-        (markdown . "https://github.com/ikatyang/tree-sitter-markdown")
-        (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
-        (rust . "https://github.com/tree-sitter/tree-sitter-rust")
-        (toml . ("https://github.com/tree-sitter/tree-sitter-toml" "v0.5.1"))
-        (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
-        (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
-        (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
+;; (setq treesit-language-source-alist
+;;       '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
+;;         (go . ("https://github.com/tree-sitter/tree-sitter-go" "v0.20.0"))
+;;         (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
+;;         (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
+;;         (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+;;         (markdown . "https://github.com/ikatyang/tree-sitter-markdown")
+;;         (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
+;;         (rust . "https://github.com/tree-sitter/tree-sitter-rust")
+;;         (toml . ("https://github.com/tree-sitter/tree-sitter-toml" "v0.5.1"))
+;;         (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
+;;         (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
+;;         (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
 
-(dolist (mapping
-         '((python-mode . python-ts-mode)
-           (css-mode . css-ts-mode)
-           (typescript-mode . typescript-ts-mode)
-           (js2-mode . js-ts-mode)
-           (bash-mode . bash-ts-mode)
-           (conf-toml-mode . toml-ts-mode)
-           (go-mode . go-ts-mode)
-           (css-mode . css-ts-mode)
-           (json-mode . json-ts-mode)
-           (js-json-mode . json-ts-mode)))
-  (add-to-list 'major-mode-remap-alist mapping)
+;; (dolist (mapping
+;;          '((python-mode . python-ts-mode)
+;;            (css-mode . css-ts-mode)
+;;            (typescript-mode . typescript-ts-mode)
+;;            (js2-mode . js-ts-mode)
+;;            (bash-mode . bash-ts-mode)
+;;            (conf-toml-mode . toml-ts-mode)
+;;            (go-mode . go-ts-mode)
+;;            (css-mode . css-ts-mode)
+;;            (json-mode . json-ts-mode)
+;;            (js-json-mode . json-ts-mode)))
+;;   (add-to-list 'major-mode-remap-alist mapping)
 
 ;; Clojure
 (use-package clojure-mode)
 
-(use-package clojure-ts-mode
-  :config
-  (push '(clojure-mode . clojure-ts-mode) major-mode-remap-alist)
-  (push '(clojurec-mode . clojurec-ts-mode) major-mode-remap-alist)
-  (push '(clojurescript-mode . clojurescript-ts-mode) major-mode-remap-alist)
-  :mode (("\\.clj\\'" . clojure-ts-mode)
-	 ("\\.edn\\'" . clojure-ts-mode)))
+;; (use-package clojure-ts-mode
+;;   :config
+  ;; (push '(clojure-mode . clojure-ts-mode) major-mode-remap-alist)
+  ;; (push '(clojurec-mode . clojurec-ts-mode) major-mode-remap-alist)
+  ;; (push '(clojurescript-mode . clojurescript-ts-mode) major-mode-remap-alist)
+  ;; :mode (("\\.clj\\'" . clojure-ts-mode)
+  ;; 	    ("\\.edn\\'" . clojure-ts-mode)))
 
 (use-package cider
-  :preface
-  (defun my/cider-capf ()
-  (when (eglot-managed-p)
-    (setq-local completion-at-point-functions (list (cape-capf-super
-						     #'eglot-completion-at-point
-						     #'cider-complete-at-point
-						     #'cape-file)))))
+  ;;:preface
+  ;; (defun my/cider-capf ()
+  ;;   (when (eglot-managed-p)
+  ;;     (setq-local completion-at-point-functions (list (cape-capf-super
+  ;; 						       #'eglot-completion-at-point
+  ;; 						       #'cider-complete-at-point
+  ;; 						       #'cape-file)))))
   :init
   (setq	cider-xref-fn-depth 90)
   :config
@@ -87,45 +89,46 @@
      ((((class color) (background light)) :foreground "darkgreen")
       (((class color) (background dark)) :foreground "darkgreen")))
   (remove-hook 'eldoc-documentation-functions #'cider-eldoc))
-  :hook
-  (cider-mode . my/cider-capf))
+  ;;:hook
+  ;;(cider-mode . my/cider-capf)
+  )
 
 (use-package nix-mode
   :hook ((nix-mode . (lambda ()
 		       (set (make-local-variable 'compile-command)
 			    "home-manager switch")))))
 
-(use-package eglot
-  :hook (((clojure-mode clojurec-mode clojurescript-mode
-	   clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
-	   scala-mode go-mode java-mode java-ts-mode)
-          . eglot-ensure))
-  :bind
-  (("C-c C-a" . 'eglot-code-actions)
-   ("C-c C-r" . 'eglot-rename))
-  ;; :custom
-  ;; (eglot-ignored-server-capabilities
-  ;;  '(;;:hoverProvider
-  ;;    ;;:documentHighlightProvider
-  ;;    ;;:documentRangeFormattingProvider
-  ;;    ;;:documentOnTypeFormattingProvider
-  ;;    :colorProvider
-  ;;    :foldingRangeProvider
-  ;;    ;;:signatureHelpProvider
-  ;;    ))
-  )
+;; (use-package eglot
+;;   :hook (((clojure-mode clojurec-mode clojurescript-mode
+;; 	   clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
+;; 	   scala-mode go-mode java-mode java-ts-mode)
+;;           . eglot-ensure))
+;;   :bind
+;;   (("C-c C-a" . 'eglot-code-actions)
+;;    ("C-c C-r" . 'eglot-rename))
+;;   ;; :custom
+;;   ;; (eglot-ignored-server-capabilities
+;;   ;;  '(;;:hoverProvider
+;;   ;;    ;;:documentHighlightProvider
+;;   ;;    ;;:documentRangeFormattingProvider
+;;   ;;    ;;:documentOnTypeFormattingProvider
+;;   ;;    :colorProvider
+;;   ;;    :foldingRangeProvider
+;;   ;;    ;;:signatureHelpProvider
+;;   ;;    ))
+;;   )
 
-(use-package eglot-java
-  :hook
-  ((java-mode . eglot-java-mode)
-   (java-ts-mode .eglot-java-mode))
-  :bind
-  ("C-c l n" . 'eglot-java-file-new)
-  ("C-c l x" . 'eglot-java-run-main)
-  ("C-c l t" . 'eglot-java-run-test)
-  ("C-c l N" . 'eglot-java-project-new)
-  ("C-c l T" . 'eglot-java-project-build-task)
-  ("C-c l R" . 'eglot-java-project-build-refresh))
+;; (use-package eglot-java
+;;   :hook
+;;   ((java-mode . eglot-java-mode)
+;;    (java-ts-mode .eglot-java-mode))
+;;   :bind
+;;   ("C-c l n" . 'eglot-java-file-new)
+;;   ("C-c l x" . 'eglot-java-run-main)
+;;   ("C-c l t" . 'eglot-java-run-test)
+;;   ("C-c l N" . 'eglot-java-project-new)
+;;   ("C-c l T" . 'eglot-java-project-build-task)
+;;   ("C-c l R" . 'eglot-java-project-build-refresh))
 
 ;; Java
 (use-package jarchive
@@ -137,8 +140,7 @@
   ((go-mode . (lambda ()
 		(if (not (string-match "go" compile-command))
 		    (set (make-local-variable 'compile-command)
-			 "go build -v && go test -v && go vet"))
-		(setq tab-width 4)))))
+			 "go build -v && go test -v && go vet"))))))
 
 ;; Code Helpers
 (use-package smartparens
