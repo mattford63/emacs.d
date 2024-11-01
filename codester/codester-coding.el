@@ -21,6 +21,9 @@
   (setq igist-current-user-name "mattford63"
 	igist-auth-marker 'igist))
 
+(use-package flycheck
+  :init (global-flycheck-mode))
+
 ;; Treesitter
 ;; (setq treesit-language-source-alist
 ;;       '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
@@ -50,7 +53,11 @@
 ;;   (add-to-list 'major-mode-remap-alist mapping)
 
 ;; Clojure
-(use-package clojure-mode)
+(use-package clojure-mode
+  :config
+  (setq clojure-docstring-fill-column 80)
+  :mode (("\\.clj\\'" . clojure-mode)
+	 ("\\.edn\\'" . clojure-mode)))
 
 ;; (use-package clojure-ts-mode
 ;;   :config
@@ -73,9 +80,9 @@
   :config
   (setq nrepl-log-messages t
         cider-repl-display-in-current-window t
-        cider-repl-use-clojure-font-lock nil
+        cider-repl-use-clojure-font-lock t ;; was nil
         cider-prompt-save-file-on-load 'always-save
-        ;;cider-font-lock-dynamically '(macro core function var)
+        cider-font-lock-dynamically '(macro core function var) ;; was commented
         nrepl-hide-special-buffers t
         cider-overlays-use-font-lock t
 	cider-mode-line-show-connection t
@@ -89,8 +96,9 @@
      ((((class color) (background light)) :foreground "darkgreen")
       (((class color) (background dark)) :foreground "darkgreen")))
   (remove-hook 'eldoc-documentation-functions #'cider-eldoc))
-  ;;:hook
+  :hook
   ;;(cider-mode . my/cider-capf)
+  (cider-mode . (lambda () (add-to-list 'completion-at-point-functions #'cape-cider-lsp)))
   )
 
 (use-package nix-mode
@@ -130,6 +138,51 @@
 ;;   ("C-c l T" . 'eglot-java-project-build-task)
 ;;   ("C-c l R" . 'eglot-java-project-build-refresh))
 
+;; Language Server Frameworks
+(use-package lsp-mode
+  :custom
+  (lsp-completion-provider :none)
+;;  (lsp-clojure-custom-server-command "~/.local/bin/clojure-lsp")
+  :init
+  (setq lsp-keymap-prefix "C-c s"
+	lsp-headerline-breadcrumb-enable nil
+	lsp-completion-enable nil ;; we use cape
+	)
+  (defun lsp-mode-setup-completion () ;; Configure orderless
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless)))
+  :hook
+  (((clojure-mode yaml-ts-mode) . lsp)
+   (go-mode . lsp)
+   (lsp-mode . lsp-enable-which-key-integration)
+   (lsp-completion-mode . lsp-mode-setup-completion)
+   (lsp-help-mode . visual-line-mode))
+  :bind
+  (:map lsp-mode-map
+	("C-c C-a" . lsp-execute-code-action)
+	("s-." . xref-find-references))
+  :commands
+  (lsp))
+
+(use-package lsp-java
+  :hook
+  (java-mode . lsp))
+
+(use-package dap-mode
+  :after lsp-mode
+  :config
+  (dap-auto-configure-mode))
+
+(use-package flymake
+  :hook
+  ((prog-mode . flymake-mode))
+  :bind
+  (("M-g M-n" . 'flymake-goto-next-error)
+   ("M-g M-p" . 'flymake-goto-prev-error)))
+
+(use-package lsp-ui :commands lsp-ui-mode)
+
+
 ;; Java
 (use-package jarchive
   :config (jarchive-mode))
@@ -140,7 +193,9 @@
   ((go-mode . (lambda ()
 		(if (not (string-match "go" compile-command))
 		    (set (make-local-variable 'compile-command)
-			 "go build -v && go test -v && go vet"))))))
+			 "go build -v && go test -v && go vet"))
+		(add-hook 'before-save-hook 'lsp-format-buffer nil t)
+-		(add-hook 'before-save-hook 'lsp-organize-imports nil t)))))
 
 ;; Code Helpers
 (use-package smartparens
