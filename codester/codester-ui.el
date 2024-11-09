@@ -23,7 +23,8 @@
   :config
   (setq doom-modeline-highlight-modified-buffer-name nil))
  
-(use-package doom-themes)
+(use-package doom-themes
+  :config (load-theme 'doom-nord))
 
 (use-package emojify
   :config

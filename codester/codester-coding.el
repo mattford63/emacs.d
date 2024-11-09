@@ -21,68 +21,66 @@
   (setq igist-current-user-name "mattford63"
 	igist-auth-marker 'igist))
 
-(use-package flycheck
-  :init (global-flycheck-mode))
-
 ;; Treesitter
-;; (setq treesit-language-source-alist
-;;       '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
-;;         (go . ("https://github.com/tree-sitter/tree-sitter-go" "v0.20.0"))
-;;         (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
-;;         (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
-;;         (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
-;;         (markdown . "https://github.com/ikatyang/tree-sitter-markdown")
-;;         (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
-;;         (rust . "https://github.com/tree-sitter/tree-sitter-rust")
-;;         (toml . ("https://github.com/tree-sitter/tree-sitter-toml" "v0.5.1"))
-;;         (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
-;;         (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
-;;         (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
+(setq treesit-language-source-alist	
+      '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
+        (go . ("https://github.com/tree-sitter/tree-sitter-go" "v0.20.0"))
+        (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
+        (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
+        (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
+        (markdown . "https://github.com/ikatyang/tree-sitter-markdown")
+        (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
+        (rust . "https://github.com/tree-sitter/tree-sitter-rust")
+        (toml . ("https://github.com/tree-sitter/tree-sitter-toml" "v0.5.1"))
+        (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
+        (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
+        (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
 
-;; (dolist (mapping
-;;          '((python-mode . python-ts-mode)
-;;            (css-mode . css-ts-mode)
-;;            (typescript-mode . typescript-ts-mode)
-;;            (js2-mode . js-ts-mode)
-;;            (bash-mode . bash-ts-mode)
-;;            (conf-toml-mode . toml-ts-mode)
-;;            (go-mode . go-ts-mode)
-;;            (css-mode . css-ts-mode)
-;;            (json-mode . json-ts-mode)
-;;            (js-json-mode . json-ts-mode)))
-;;   (add-to-list 'major-mode-remap-alist mapping)
+;;(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
+
+(dolist (mapping
+         '((python-mode . python-ts-mode)
+           (css-mode . css-ts-mode)
+           (typescript-mode . typescript-ts-mode)
+           (js2-mode . js-ts-mode)
+           (bash-mode . bash-ts-mode)
+           (conf-toml-mode . toml-ts-mode)
+           (go-mode . go-ts-mode)
+           (css-mode . css-ts-mode)
+           (json-mode . json-ts-mode)
+           (js-json-mode . json-ts-mode)))
+  (add-to-list 'major-mode-remap-alist mapping))
 
 ;; Clojure
 (use-package clojure-mode
-  :config
-  (setq clojure-docstring-fill-column 80)
   :mode (("\\.clj\\'" . clojure-mode)
 	 ("\\.edn\\'" . clojure-mode)))
 
 ;; (use-package clojure-ts-mode
 ;;   :config
-  ;; (push '(clojure-mode . clojure-ts-mode) major-mode-remap-alist)
-  ;; (push '(clojurec-mode . clojurec-ts-mode) major-mode-remap-alist)
-  ;; (push '(clojurescript-mode . clojurescript-ts-mode) major-mode-remap-alist)
-  ;; :mode (("\\.clj\\'" . clojure-ts-mode)
-  ;; 	    ("\\.edn\\'" . clojure-ts-mode)))
+;;   (push '(clojure-mode . clojure-ts-mode) major-mode-remap-alist)
+;;   (push '(clojurec-mode . clojurec-ts-mode) major-mode-remap-alist)
+;;   (push '(clojurescript-mode . clojurescript-ts-mode) major-mode-remap-alist))
+
+(use-package clj-refactor
+  :hook ((clojure-mode . clj-refactor-mode)))
 
 (use-package cider
-  ;;:preface
-  ;; (defun my/cider-capf ()
-  ;;   (when (eglot-managed-p)
-  ;;     (setq-local completion-at-point-functions (list (cape-capf-super
-  ;; 						       #'eglot-completion-at-point
-  ;; 						       #'cider-complete-at-point
-  ;; 						       #'cape-file)))))
+  :preface
+  (defun my/cider-capf ()
+  (when (eglot-managed-p)
+    (setq-local completion-at-point-functions (list (cape-capf-super
+						     #'eglot-completion-at-point
+						     #'cider-complete-at-point
+						     #'cape-file)))))
   :init
   (setq	cider-xref-fn-depth 90)
   :config
   (setq nrepl-log-messages t
         cider-repl-display-in-current-window t
-        cider-repl-use-clojure-font-lock t ;; was nil
+        cider-repl-use-clojure-font-lock nil
         cider-prompt-save-file-on-load 'always-save
-        cider-font-lock-dynamically '(macro core function var) ;; was commented
+        ;;cider-font-lock-dynamically '(macro core function var)
         nrepl-hide-special-buffers t
         cider-overlays-use-font-lock t
 	cider-mode-line-show-connection t
@@ -95,93 +93,42 @@
    `(cider-fringe-good-face
      ((((class color) (background light)) :foreground "darkgreen")
       (((class color) (background dark)) :foreground "darkgreen")))
-  (remove-hook 'eldoc-documentation-functions #'cider-eldoc))
+   ;;(remove-hook 'eldoc-documentation-functions #'cider-eldoc)
+   )
   :hook
-  ;;(cider-mode . my/cider-capf)
-  (cider-mode . (lambda () (add-to-list 'completion-at-point-functions #'cape-cider-lsp)))
+  (cider-mode . my/cider-capf))
+
+(use-package eglot
+  :hook (((clojure-mode clojurec-mode clojurescript-mode
+	   ;;clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
+	   scala-mode go-mode java-mode java-ts-mode)
+          . eglot-ensure))
+  :bind
+  (("C-c C-a" . 'eglot-code-actions)
+   ("C-c C-r" . 'eglot-rename))
+  :custom
+  (eglot-ignored-server-capabilities
+   '(;;:hoverProvider
+     ;;:documentHighlightProvider
+     ;;:documentRangeFormattingProvider
+     ;;:documentOnTypeFormattingProvider
+     ;;:colorProvider
+     ;;:foldingRangeProvider
+     :signatureHelpProvider
+     ))
   )
 
-(use-package nix-mode
-  :hook ((nix-mode . (lambda ()
-		       (set (make-local-variable 'compile-command)
-			    "home-manager switch")))))
-
-;; (use-package eglot
-;;   :hook (((clojure-mode clojurec-mode clojurescript-mode
-;; 	   clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
-;; 	   scala-mode go-mode java-mode java-ts-mode)
-;;           . eglot-ensure))
-;;   :bind
-;;   (("C-c C-a" . 'eglot-code-actions)
-;;    ("C-c C-r" . 'eglot-rename))
-;;   ;; :custom
-;;   ;; (eglot-ignored-server-capabilities
-;;   ;;  '(;;:hoverProvider
-;;   ;;    ;;:documentHighlightProvider
-;;   ;;    ;;:documentRangeFormattingProvider
-;;   ;;    ;;:documentOnTypeFormattingProvider
-;;   ;;    :colorProvider
-;;   ;;    :foldingRangeProvider
-;;   ;;    ;;:signatureHelpProvider
-;;   ;;    ))
-;;   )
-
-;; (use-package eglot-java
-;;   :hook
-;;   ((java-mode . eglot-java-mode)
-;;    (java-ts-mode .eglot-java-mode))
-;;   :bind
-;;   ("C-c l n" . 'eglot-java-file-new)
-;;   ("C-c l x" . 'eglot-java-run-main)
-;;   ("C-c l t" . 'eglot-java-run-test)
-;;   ("C-c l N" . 'eglot-java-project-new)
-;;   ("C-c l T" . 'eglot-java-project-build-task)
-;;   ("C-c l R" . 'eglot-java-project-build-refresh))
-
-;; Language Server Frameworks
-(use-package lsp-mode
-  :custom
-  (lsp-completion-provider :none)
-;;  (lsp-clojure-custom-server-command "~/.local/bin/clojure-lsp")
-  :init
-  (setq lsp-keymap-prefix "C-c s"
-	lsp-headerline-breadcrumb-enable nil
-	lsp-completion-enable nil ;; we use cape
-	)
-  (defun lsp-mode-setup-completion () ;; Configure orderless
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless)))
+(use-package eglot-java
   :hook
-  (((clojure-mode yaml-ts-mode) . lsp)
-   (go-mode . lsp)
-   (lsp-mode . lsp-enable-which-key-integration)
-   (lsp-completion-mode . lsp-mode-setup-completion)
-   (lsp-help-mode . visual-line-mode))
+  ((java-mode . eglot-java-mode)
+   (java-ts-mode .eglot-java-mode))
   :bind
-  (:map lsp-mode-map
-	("C-c C-a" . lsp-execute-code-action)
-	("s-." . xref-find-references))
-  :commands
-  (lsp))
-
-(use-package lsp-java
-  :hook
-  (java-mode . lsp))
-
-(use-package dap-mode
-  :after lsp-mode
-  :config
-  (dap-auto-configure-mode))
-
-(use-package flymake
-  :hook
-  ((prog-mode . flymake-mode))
-  :bind
-  (("M-g M-n" . 'flymake-goto-next-error)
-   ("M-g M-p" . 'flymake-goto-prev-error)))
-
-(use-package lsp-ui :commands lsp-ui-mode)
-
+  ("C-c l n" . 'eglot-java-file-new)
+  ("C-c l x" . 'eglot-java-run-main)
+  ("C-c l t" . 'eglot-java-run-test)
+  ("C-c l N" . 'eglot-java-project-new)
+  ("C-c l T" . 'eglot-java-project-build-task)
+  ("C-c l R" . 'eglot-java-project-build-refresh))
 
 ;; Java
 (use-package jarchive
@@ -194,8 +141,7 @@
 		(if (not (string-match "go" compile-command))
 		    (set (make-local-variable 'compile-command)
 			 "go build -v && go test -v && go vet"))
-		(add-hook 'before-save-hook 'lsp-format-buffer nil t)
--		(add-hook 'before-save-hook 'lsp-organize-imports nil t)))))
+		(setq tab-width 4)))))
 
 ;; Code Helpers
 (use-package smartparens

@@ -22,12 +22,7 @@
   (global-corfu-mode))
 
 ;; Add extensions
-(use-package cape
-  :init
-  (defalias 'cape-cider-lsp
-    (cape-capf-super #'cider-complete-at-point #'lsp-completion-at-point))
-  (add-to-list 'completion-at-point-functions #'cape-cider-lsp)
-  (add-to-list 'completion-at-point-functions #'cape-file))
+(use-package cape)
 
 ;; Mini-buffer completion
 (use-package vertico
@@ -76,20 +71,6 @@
 	       '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
 		 nil
 		 (window-parameters (mode-line-format . none)))))
-
-;; Project management
-(use-package projectile
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :init
-  (require 'tramp)
-  (setq projectile-project-search-path '(("~/src/" . 2) ("~/.emacs.d")))
-  (projectile-mode +1)
-  :bind (("<f6>" . projectile-ripgrep)
-         ("C-<f6>" . projectile-replace)
-         ("<f7>" . projectile-find-file)
-         ("<f8>" . projectile-run-vterm)
-         ("C-c p" . projectile-command-map)))
 
 (use-package embark-consult
   :ensure t

@@ -26,12 +26,12 @@
 	(org-show-properties)
       (org-hide-properties)))
   
-  :bind
-  (("C-c l" . org-store-link)
-   ("C-c a" . org-agenda)
-   ("C-c c" . org-capture)
-   ("C-c M-l" . jcs-get-link)
-   ("C-c M-p" . org-toggle-properties))
+  ;; :bind
+  ;; (("C-c l" . org-store-link)
+  ;;  ("C-c a" . org-agenda)
+  ;;  ("C-c c" . org-capture)
+  ;;  ("C-c M-l" . jcs-get-link)
+  ;;  ("C-c M-p" . org-toggle-properties))
   :config
   (setq org-agenda-files '("~/src/org/")
 	org-refile-targets '((org-agenda-files :maxlevel . 3))

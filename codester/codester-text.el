@@ -8,19 +8,19 @@
 
 (use-package visual-fill-column
   :init
-  (setq fill-column 110)
-  (setq-default visual-fill-column-center-text nil))
+  (setq fill-column 90)
+  (setq-default visual-fill-column-center-text t))
 
-;; (use-package jinx
-;;   :bind (("M-$" . jinx-correct)
-;;          ("C-M-$" . jinx-languages)))
+(use-package jinx
+  :bind (("M-$" . jinx-correct)
+         ("C-M-$" . jinx-languages)))
 
-;;(use-package flymake-proselint)
+(use-package flymake-proselint)
 
 (defun text-modes ()
   "Load text modes."
   (progn
-;;    (jinx-mode)
+    (jinx-mode)
     (visual-line-mode)
     (visual-fill-column-mode)
     (adaptive-wrap-prefix-mode)
