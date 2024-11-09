@@ -64,6 +64,17 @@
 (define-key xwidget-webkit-mode-map (kbd "C-c C-=") #'xwidget-webkit-zoom-in)
 (define-key xwidget-webkit-mode-map (kbd "C-c C--") #'xwidget-webkit-zoom-out)
 
+
+(use-package project
+  :bind (:map project-prefix-map
+	      ("m" . project-magit-dir))
+  :config
+  (defun project-magit-dir ()
+    "Run Magit in the current project's root."
+    (interactive)
+    (magit (project-root (project-current t))))
+  (add-to-list 'project-switch-commands '(project-magit-dir "Magit")))
+
 ;; Automatice Environment
 (use-package direnv
   :config
