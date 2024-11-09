@@ -17,7 +17,6 @@
 (require 'codester-text)
 (require 'codester-completion)
 (require 'codester-coding)
-(require 'codester-org)
 (require 'codester-tools)
 
 ;;; init.el ends here
