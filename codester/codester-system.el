@@ -26,7 +26,10 @@
 (use-package diminish)
 
 ;; Terminal
-(use-package vterm)
+(use-package vterm
+  :config
+  (setq vterm-timer-delay 0.05))
+
 (use-package vterm-toggle
   :bind (("C-`" . 'vterm-toggle)
 	 ("<C-return>" . 'vterm-toggle-insert-cd)))

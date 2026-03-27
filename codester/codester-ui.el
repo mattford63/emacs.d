@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(push '(font . "JetBrainsMono Nerd Font 14") default-frame-alist)
+(push '(font . "Menlo 14") default-frame-alist)
 (save-place-mode)
 (setq left-fringe-width 12)
 
