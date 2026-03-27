@@ -1,6 +1,7 @@
 *
 
 !.gitignore
+!CLAUDE.md
 !init.el
 !early-init.el
 !elfeed.org
