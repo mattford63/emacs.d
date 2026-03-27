@@ -2,8 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(provide 'codester-text)
-
 (use-package adaptive-wrap)
 
 (use-package visual-fill-column

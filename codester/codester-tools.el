@@ -2,7 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-
 ;; Tramp
 (with-eval-after-load 'tramp
   (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
@@ -15,8 +14,6 @@
 (use-package elfeed-org
   :config
   (elfeed-org))
-
-
 
 ;; ;; Mu4e
 ;; ;; mu init -m ~/.maildir --my-address matt@dancingfrog.co.uk --my-address mattford63@icloud.com --my-address mattford63@gmail.com --my-address mtf@juxt.pro

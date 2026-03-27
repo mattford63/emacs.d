@@ -3,6 +3,7 @@
 ;;; Code:
 
 ;; Key Chord helper
+(setq which-key-idle-delay 0.5)
 (which-key-mode)
 
 ;; In buffer completion
@@ -19,12 +20,18 @@
   (global-corfu-mode))
 
 ;; Add extensions
-(use-package cape)
+(use-package cape
+  :init
+  (add-hook 'completion-at-point-functions #'cape-file)
+  (add-hook 'completion-at-point-functions #'cape-dabbrev))
 
 ;; Mini-buffer completion
 (use-package vertico
   :config
   (vertico-mode))
+
+;; Persist minibuffer history across sessions
+(savehist-mode)
 
 ;; Advanced completion styles
 (use-package orderless

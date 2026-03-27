@@ -92,21 +92,20 @@
 (use-package eglot-java
   :hook
   ((java-mode . eglot-java-mode)
-   (java-ts-mode .eglot-java-mode))
+   (java-ts-mode . eglot-java-mode))
   :bind
-  ("C-c l n" . 'eglot-java-file-new)
-  ("C-c l x" . 'eglot-java-run-main)
-  ("C-c l t" . 'eglot-java-run-test)
-  ("C-c l N" . 'eglot-java-project-new)
-  ("C-c l T" . 'eglot-java-project-build-task)
-  ("C-c l R" . 'eglot-java-project-build-refresh)
+  (("C-c l n" . eglot-java-file-new)
+   ("C-c l x" . eglot-java-run-main)
+   ("C-c l t" . eglot-java-run-test)
+   ("C-c l N" . eglot-java-project-new)
+   ("C-c l T" . eglot-java-project-build-task)
+   ("C-c l R" . eglot-java-project-build-refresh))
   :config
   (setq eglot-java-user-init-opts-fn
-      (lambda (server eglot-java-eclipse-jdt)
-        '(:settings
-          (:java
-           (:import (:gradle (:wrapper (:enabled t))))))))
-  )
+        (lambda (server eglot-java-eclipse-jdt)
+          '(:settings
+            (:java
+             (:import (:gradle (:wrapper (:enabled t)))))))))
 
 ;; Java
 (use-package jarchive

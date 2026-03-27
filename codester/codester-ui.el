@@ -2,12 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(setq inhibit-startup-screen t)
-(setq default-frame-alist '((font . "JetBrainsMono Nerd Font 14")
-			    (vertical-scroll-bars . nil)))
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
+(push '(font . "JetBrainsMono Nerd Font 14") default-frame-alist)
 (save-place-mode)
 (setq left-fringe-width 12)
 
