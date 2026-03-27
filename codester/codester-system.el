@@ -4,7 +4,7 @@
 
 ;; Auth sources
 (setq auth-sources '("~/.authinfo.gpg"))
-(require 'epg)
+(require 'epa)
 (setq epg-pinentry-mode 'loopback)
 
 ;; Backups/Files
@@ -30,16 +30,26 @@
   :config
   (setq vterm-timer-delay 0.05))
 
+(with-eval-after-load 'vterm
+  (defun my/vterm-replace-bullet (orig-fun process input)
+    "Replace ⏺ with ● before vterm renders it.
+Uses raw UTF-8 bytes because vterm--filter receives unibyte strings."
+    (funcall orig-fun process
+             (string-replace (unibyte-string #xe2 #x8f #xba)
+                             (unibyte-string #xe2 #x97 #x8f)
+                             input)))
+  (advice-add 'vterm--filter :around #'my/vterm-replace-bullet))
+
 (use-package vterm-toggle
-  :bind (("C-`" . 'vterm-toggle)
-	 ("<C-return>" . 'vterm-toggle-insert-cd)))
+  :bind (("C-`" . vterm-toggle)
+	 ("<C-return>" . vterm-toggle-insert-cd)))
 
 ;; Dired
 (use-package dired
   :ensure nil
   :config
-  (setq dired-recursive-copies t
-	dired-recursive-deletes t
+  (setq dired-recursive-copies 'always
+	dired-recursive-deletes 'always
 	dired-dwim-target t
 	delete-by-moving-to-trash t)
   (setf dired-kill-when-opening-new-dired-buffer t)
@@ -47,11 +57,11 @@
   (:map dired-mode-map
 	("e" . wdired-change-to-wdired-mode)))
 
+(use-package nerd-icons-dired
+  :hook (dired-mode . nerd-icons-dired-mode))
+
 ;; Wgrep
 (use-package wgrep)
-
-;; Search
-(use-package ripgrep)
 
 ;; Browse
 (setq browse-url-browser-function 'browse-url-default-macosx-browser)

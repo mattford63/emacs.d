@@ -3,8 +3,12 @@
 ;;; Code:
 
 ;; Key Chord helper
-(setq which-key-idle-delay 0.5)
-(which-key-mode)
+(use-package which-key
+  :ensure nil
+  :custom
+  (which-key-idle-delay 0.5)
+  :config
+  (which-key-mode))
 
 ;; In buffer completion
 (use-package corfu

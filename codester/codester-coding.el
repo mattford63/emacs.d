@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;; Compilation
-(global-set-key ["C-c C-c"] 'compile)
+(keymap-global-set "C-c C-c" #'compile)
 
 (setq tab-width 4)
 
@@ -26,6 +26,9 @@
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
   (global-treesit-auto-mode))
+
+;; Scala
+(use-package scala-mode)
 
 ;; Clojure
 (use-package clojure-ts-mode
@@ -58,7 +61,7 @@
 	cljr-add-ns-to-blank-clj-files nil ; prefer lsp
 	cider-use-tooltips nil ; prefer lsp
 	)
-  (cider-repl-toggle-pretty-printing)
+  (setq cider-repl-use-pretty-printing t)
   (custom-set-faces
    `(cider-fringe-good-face
      ((((class color) (background light)) :foreground "darkgreen")
@@ -75,8 +78,8 @@
 	   scala-mode go-mode java-mode java-ts-mode)
           . eglot-ensure))
   :bind
-  (("C-c C-a" . 'eglot-code-actions)
-   ("C-c C-r" . 'eglot-rename))
+  (("C-c C-a" . eglot-code-actions)
+   ("C-c C-r" . eglot-rename))
   :custom
   (eglot-ignored-server-capabilities
    '(;;:hoverProvider
@@ -151,15 +154,15 @@
   )
 
 (use-package expand-region
-  :bind (("C-=" . 'er/expand-region)))
+  :bind (("C-=" . er/expand-region)))
 
 (use-package flymake
   :ensure nil
   :hook
   ((prog-mode . flymake-mode))
   :bind
-  (("M-g M-n" . 'flymake-goto-next-error)
-   ("M-g M-p" . 'flymake-goto-prev-error)))
+  (("M-g M-n" . flymake-goto-next-error)
+   ("M-g M-p" . flymake-goto-prev-error)))
 
 (use-package docker-compose-mode)
 (use-package dockerfile-mode)
