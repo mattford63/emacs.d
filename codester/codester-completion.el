@@ -3,10 +3,7 @@
 ;;; Code:
 
 ;; Key Chord helper
-(use-package which-key
-  :config
-  (which-key-mode)
-  :diminish)
+(which-key-mode)
 
 ;; In buffer completion
 (use-package corfu

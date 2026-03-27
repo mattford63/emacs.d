@@ -22,48 +22,18 @@
 	igist-auth-marker 'igist))
 
 ;; Treesitter
-(setq treesit-language-source-alist	
-      '((css . ("https://github.com/tree-sitter/tree-sitter-css" "v0.20.0"))
-        (go . ("https://github.com/tree-sitter/tree-sitter-go" "v0.20.0"))
-        (html . ("https://github.com/tree-sitter/tree-sitter-html" "v0.20.1"))
-        (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript" "v0.20.1" "src"))
-        (json . ("https://github.com/tree-sitter/tree-sitter-json" "v0.20.2"))
-        (markdown . "https://github.com/ikatyang/tree-sitter-markdown")
-        (python . ("https://github.com/tree-sitter/tree-sitter-python" "v0.20.4"))
-        (rust . "https://github.com/tree-sitter/tree-sitter-rust")
-        (toml . ("https://github.com/tree-sitter/tree-sitter-toml" "v0.5.1"))
-        (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "tsx/src"))
-        (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "v0.20.3" "typescript/src"))
-        (yaml . ("https://github.com/ikatyang/tree-sitter-yaml" "v0.5.0"))))
-
-;;(mapc #'treesit-install-language-grammar (mapcar #'car treesit-language-source-alist))
-
-(dolist (mapping
-         '((python-mode . python-ts-mode)
-           (css-mode . css-ts-mode)
-           (typescript-mode . typescript-ts-mode)
-           (js2-mode . js-ts-mode)
-           (bash-mode . bash-ts-mode)
-           (conf-toml-mode . toml-ts-mode)
-           (go-mode . go-ts-mode)
-           (css-mode . css-ts-mode)
-           (json-mode . json-ts-mode)
-           (js-json-mode . json-ts-mode)))
-  (add-to-list 'major-mode-remap-alist mapping))
+(use-package treesit-auto
+  :config
+  (treesit-auto-add-to-auto-mode-alist 'all)
+  (global-treesit-auto-mode))
 
 ;; Clojure
-(use-package clojure-mode
-  :mode (("\\.clj\\'" . clojure-mode)
-	 ("\\.edn\\'" . clojure-mode)))
-
-;; (use-package clojure-ts-mode
-;;   :config
-;;   (push '(clojure-mode . clojure-ts-mode) major-mode-remap-alist)
-;;   (push '(clojurec-mode . clojurec-ts-mode) major-mode-remap-alist)
-;;   (push '(clojurescript-mode . clojurescript-ts-mode) major-mode-remap-alist))
+(use-package clojure-ts-mode
+  :mode (("\\.clj\\'" . clojure-ts-mode)
+	 ("\\.edn\\'" . clojure-ts-mode)))
 
 (use-package clj-refactor
-  :hook ((clojure-mode . clj-refactor-mode)))
+  :hook ((clojure-mode clojure-ts-mode) . clj-refactor-mode))
 
 (use-package cider
   :preface
@@ -99,8 +69,9 @@
   (cider-mode . my/cider-capf))
 
 (use-package eglot
+  :ensure nil
   :hook (((clojure-mode clojurec-mode clojurescript-mode
-	   ;;clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
+	   clojure-ts-mode clojurescript-ts-mode clojurec-ts-mode
 	   scala-mode go-mode java-mode java-ts-mode)
           . eglot-ensure))
   :bind
@@ -128,7 +99,14 @@
   ("C-c l t" . 'eglot-java-run-test)
   ("C-c l N" . 'eglot-java-project-new)
   ("C-c l T" . 'eglot-java-project-build-task)
-  ("C-c l R" . 'eglot-java-project-build-refresh))
+  ("C-c l R" . 'eglot-java-project-build-refresh)
+  :config
+  (setq eglot-java-user-init-opts-fn
+      (lambda (server eglot-java-eclipse-jdt)
+        '(:settings
+          (:java
+           (:import (:gradle (:wrapper (:enabled t))))))))
+  )
 
 ;; Java
 (use-package jarchive
@@ -150,23 +128,6 @@
    . smartparens-strict-mode)
   :diminish
   :config
-  ;; This is fixed on master but not made into melpa yet
-  (defalias 'sp--syntax-class-to-char 'syntax-class-to-char)
-  (when (version< emacs-version "28.1")
-    ;; Ripped from Emacs 27.0 subr.el.
-    ;; See Github Issue#946 and Emacs bug#31692.
-    (defun sp--syntax-class-to-char (syntax)
-      "Return the syntax char of CLASS, described by an integer.
-For example, if SYNTAX is word constituent (the integer 2), the
-character w (119) is returned.
-
-This is a compat function for `syntax-class-to-char'."
-      (let ((spec " .w_()'\"$\\/<>@!|"))
-        (if (and (fixnump syntax)
-                 (>= syntax 0)
-                 (< syntax 16))
-            (aref spec syntax)
-          (error "Args out of range")))))
   (require 'smartparens-config)
   (sp-use-paredit-bindings)
   ;; tree-sitter intergration for clojure
@@ -194,6 +155,7 @@ This is a compat function for `syntax-class-to-char'."
   :bind (("C-=" . 'er/expand-region)))
 
 (use-package flymake
+  :ensure nil
   :hook
   ((prog-mode . flymake-mode))
   :bind
@@ -204,6 +166,14 @@ This is a compat function for `syntax-class-to-char'."
 (use-package dockerfile-mode)
 (use-package docker
   :bind ("C-c d" . docker))
+
+
+(use-package claude-code-ide
+  :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
+  :bind ("C-c C-'" . claude-code-ide-menu) ; Set your favorite keybinding
+  :config
+  (setq claude-code-ide-cli-path "~/.local/bin/claude")
+  (claude-code-ide-emacs-tools-setup)) ; Optionally enable Emacs MCP tools
 
 (provide 'codester-coding)
 

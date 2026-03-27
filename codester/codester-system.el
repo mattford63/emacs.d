@@ -3,8 +3,6 @@
 ;;; Code:
 
 ;; Auth sources
-(setenv "SSH_AUTH_SOCK" "/run/user/1000/gnupg/S.gpg-agent.ssh")
-
 (setq auth-sources '("~/.authinfo.gpg"))
 (require 'epg)
 (setq epg-pinentry-mode 'loopback)
@@ -17,14 +15,15 @@
 (global-auto-revert-mode t)
 
 ;; Package System Setup
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa" . "https://melpa.org/packages/") t)
+(package-initialize)
+(unless package-archive-contents
+  (package-refresh-contents))
 (require 'use-package-ensure)
 (setq use-package-always-ensure t)
 (use-package diminish)
-(unless (package-installed-p 'vc-use-package) ;; remove when Emacs 30+
-  (package-vc-install "https://github.com/slotThe/vc-use-package"))
-(require 'vc-use-package)
-(add-to-list 'package-archives
-             '("melpa" . "http://melpa.org/packages/") t)
 
 ;; Terminal
 (use-package vterm)
@@ -52,20 +51,10 @@
 (use-package ripgrep)
 
 ;; Browse
-(add-hook 'window-configuration-change-hook
-	  (lambda ()
-	    (when (equal major-mode 'xwidget-webkit-mode)
-	      (xwidget-webkit-adjust-size-dispatch)
-	      (set-xwidget-query-on-exit-flag (xwidget-webkit-current-session) nil))))
-(setq browse-url-browser-function 'browse-url-chrome)
-(setq browse-url-secondary-browser-function 'xwidget-webkit-browse-url)
-(setq browse-url-generic-program "google-chrome-stable")
-(require 'xwidget)
-(define-key xwidget-webkit-mode-map (kbd "C-c C-=") #'xwidget-webkit-zoom-in)
-(define-key xwidget-webkit-mode-map (kbd "C-c C--") #'xwidget-webkit-zoom-out)
-
+(setq browse-url-browser-function 'browse-url-default-macosx-browser)
 
 (use-package project
+  :ensure nil
   :bind (:map project-prefix-map
 	      ("m" . project-magit-dir))
   :config
@@ -80,6 +69,9 @@
   :config
   (direnv-mode)
   (setq direnv-always-show-summary nil))
+
+(require 'ansi-color)
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
 (provide 'codester-system)
 ;;; codester-system.el ends here

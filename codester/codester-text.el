@@ -37,7 +37,7 @@
   :hook
   ((gfm-mode markdown-mode) . text-modes))
 
-(use-package pdf-tools)
+;; (use-package pdf-tools) ;; causes face_for_font crash on macOS 26.3
 
 (provide 'codester-text)
 

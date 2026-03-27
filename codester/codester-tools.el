@@ -2,19 +2,10 @@
 ;;; Commentary:
 ;;; Code:
 
-;; Bamboo HR
-(use-package ts)
-(use-package a)
-(use-package tablist)
-(use-package bhr
-  :vc (:fetcher github :repo elken/bhr.el)
-  :config
-  (setq bhr-org-name "juxtpro")
-  :bind
-  ("C-c b" . 'bhr-submit-multiple))
 
 ;; Tramp
-(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+(with-eval-after-load 'tramp
+  (add-to-list 'tramp-remote-path 'tramp-own-remote-path))
 
 ;; News Reader
 (use-package elfeed
@@ -25,21 +16,7 @@
   :config
   (elfeed-org))
 
-(use-package elfeed-webkit
-  :init
-  (setq elfeed-webkit-auto-enable-tags '(webkit))
-  :config
-  (elfeed-webkit-auto-toggle-by-tag)
-  :bind (:map elfeed-show-mode-map
-              ("C-%" . elfeed-webkit-toggle)
-	      ("C-c C-=" . xwidget-webkit-zoom-in)
-	      ("C-c C--" . xwidget-webkit-zoom-out))
-  :after elfeed)
 
-;; Pinentry
-(use-package pinentry
-  :config
-  (pinentry-start))
 
 ;; ;; Mu4e
 ;; ;; mu init -m ~/.maildir --my-address matt@dancingfrog.co.uk --my-address mattford63@icloud.com --my-address mattford63@gmail.com --my-address mtf@juxt.pro
