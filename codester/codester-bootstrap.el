@@ -5,7 +5,7 @@
 ;; Reset GC threshold after init
 (add-hook 'emacs-startup-hook
           (lambda ()
-            (setq gc-cons-threshold (* 2 1024 1024))))
+            (setq gc-cons-threshold (* 100 1024 1024))))
 
 ;; macOS modifier keys and niceties
 (when (eq system-type 'darwin)
