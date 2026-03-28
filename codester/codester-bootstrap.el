@@ -16,6 +16,7 @@
   (setq ns-use-proxy-icon nil))
 
 (setq frame-title-format "%b")
+(setq ring-bell-function 'ignore)
 
 ;; Smooth scrolling
 (pixel-scroll-precision-mode)

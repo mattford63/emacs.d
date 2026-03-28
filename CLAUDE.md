@@ -12,8 +12,8 @@ The config is split into a modular system loaded from `init.el`:
 
 - **`early-init.el`** — Pre-GUI setup: GC threshold, disables toolbar/scrollbars/menubar
 - **`init.el`** — Entry point, loads `custom.el` then requires all `codester-*` modules
-- **`custom.el`** — Emacs customize system (auto-generated, avoid hand-editing)
-- **`codester/`** — The core config, organized by concern:
+- **`custom.el`** — Emacs customise system (auto-generated, avoid hand-editing)
+- **`codester/`** — The core config, organised by concern:
   - `codester-bootstrap` — Post-init GC reset, macOS key mappings (Cmd=Meta), pixel scrolling
   - `codester-system` — Package repos, auth (GPG), backups, vterm, dired, direnv, project.el integration
   - `codester-ui` — Theme (Catppuccin Mocha), font (Menlo 14pt), doom-modeline, ligatures, winner-mode
@@ -47,3 +47,4 @@ Evaluate individual forms with `C-x C-e` or reload a module buffer with `M-x eva
 - `C-=` — expand-region
 - `` C-` `` / `C-return` — vterm-toggle
 - `M-$` — jinx-correct
+
