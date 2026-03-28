@@ -64,7 +64,10 @@ Uses raw UTF-8 bytes because vterm--filter receives unibyte strings."
 (use-package wgrep)
 
 ;; Browse
-(setq browse-url-browser-function 'browse-url-default-macosx-browser)
+(setq browse-url-browser-function
+      (if (eq system-type 'darwin)
+          'browse-url-default-macosx-browser
+        'browse-url-xdg-open))
 
 (use-package project
   :ensure nil

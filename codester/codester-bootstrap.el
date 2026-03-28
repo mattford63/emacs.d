@@ -7,17 +7,17 @@
           (lambda ()
             (setq gc-cons-threshold (* 2 1024 1024))))
 
-;; Modifier keys
-(setq mac-option-key-is-meta nil)
-(setq mac-command-key-is-meta t)
-(setq mac-command-modifier 'meta)
-(setq mac-option-modifier 'none)
+;; macOS modifier keys and niceties
+(when (eq system-type 'darwin)
+  (setq mac-option-key-is-meta nil)
+  (setq mac-command-key-is-meta t)
+  (setq mac-command-modifier 'meta)
+  (setq mac-option-modifier 'none)
+  (setq ns-use-proxy-icon nil))
 
-;; macOS niceties
-(setq ns-use-proxy-icon nil)
 (setq frame-title-format "%b")
 
-;; Smooth trackpad scrolling
+;; Smooth scrolling
 (pixel-scroll-precision-mode)
 
 (provide 'codester-bootstrap)
