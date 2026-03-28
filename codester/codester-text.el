@@ -10,6 +10,10 @@
   (setq-default visual-fill-column-center-text t))
 
 (use-package jinx
+  :init
+  (setenv "LANG" "en_GB.UTF-8")
+  :custom
+  (jinx-languages "en_GB.UTF-8")
   :bind (("M-$" . jinx-correct)
          ("C-M-$" . jinx-languages)))
 
