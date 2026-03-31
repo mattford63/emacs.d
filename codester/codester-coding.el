@@ -104,15 +104,29 @@
    ("C-c l T" . eglot-java-project-build-task)
    ("C-c l R" . eglot-java-project-build-refresh))
   :config
-  (setq eglot-java-user-init-opts-fn
-        #'(lambda (_server _jdt)
-            '(:settings
-              (:java
-               (:import (:gradle (:wrapper (:enabled t)))))))))
+  (defun my/eglot-java-init-opts (_server _jdt)
+    `(:bundles [,(expand-file-name "share/java-debug/com.microsoft.java.debug.plugin-0.53.1.jar"
+                                   user-emacs-directory)]
+      :settings
+      (:java
+       (:import (:gradle (:wrapper (:enabled t)))))))
+  (setq eglot-java-user-init-opts-fn 'my/eglot-java-init-opts))
 
 ;; Java
 (use-package jarchive
   :config (jarchive-mode))
+
+;; Debug Adapter Protocol
+(use-package dape
+  :config
+  (setq dape-buffer-window-arrangement 'right))
+
+;; Python
+(use-package python-pytest
+  :bind (:map python-mode-map
+         ("C-c l t" . python-pytest-dispatch)
+         :map python-ts-mode-map
+         ("C-c l t" . python-pytest-dispatch)))
 
 ;; Go
 (use-package go-mode
