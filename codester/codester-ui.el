@@ -2,10 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(push `(font . ,(if (eq system-type 'darwin) "Menlo 14" "DejaVu Sans Mono 12"))
-      default-frame-alist)
 (save-place-mode)
-(setq left-fringe-width 12)
 
 (use-package catppuccin-theme
   :config
