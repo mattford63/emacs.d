@@ -13,6 +13,7 @@
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push `(font . ,(if (eq system-type 'darwin) "Menlo 14" "DejaVu Sans Mono 12"))
       default-frame-alist)
+(push '(ns-proxy-icon . nil) default-frame-alist)
 (push '(left-fringe . 12) default-frame-alist)
 (push '(background-color . "#1e1e2e") default-frame-alist)
 (push '(foreground-color . "#cdd6f4") default-frame-alist)
